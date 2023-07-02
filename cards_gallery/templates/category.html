@@ -1,5 +1,4 @@
 {% load static %}
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -13,9 +12,15 @@
     <link rel="canonical" href="">
 
     <!-- Bootstrap core CSS -->
-    <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet">
-
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <style>
+    .container,.container-fluid,.container-lg,.container-md,.container-sm,.container-xl,.container-xxl{width:100%;padding-right:var(--bs-gutter-x,.75rem);padding-left:var(--bs-gutter-x,.75rem);margin-right:auto;margin-left:auto}@media (min-width:576px){.container,.container-sm{max-width:540px}}@media (min-width:768px){.container,.container-md,.container-sm{max-width:720px}}@media (min-width:992px){.container,.container-lg,.container-md,.container-sm{max-width:960px}}@media (min-width:1200px){.container,.container-lg,.container-md,.container-sm,.container-xl{max-width:1140px}}@media (min-width:1400px){.container,.container-lg,.container-md,.container-sm,.container-xl,.container-xxl{max-width:1320px}}
+    .col
+    {
+        padding-top: 15px;
+    }
+
       .bd-placeholder-img {
         font-size: 1.125rem;
         text-anchor: middle;
@@ -45,6 +50,7 @@
       text-align: center;
     }
   img{
+  max-width: 100%;
   transition: .5s ease;
   }
     /* When you mouse over the container, fade in the overlay title */
@@ -54,6 +60,74 @@
     .card:hover .overlay {
       opacity: 1;
     }
+
+    /* Round button */
+      .btn-circle {
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    padding: 0;
+    border-radius: 50%;
+  }
+
+  .btn-circle i {
+    position: relative;
+    top: -1px;
+  }
+
+  .btn-circle-sm {
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    font-size: 0.9rem;
+  }
+
+  .btn-circle-lg {
+    width: 55px;
+    height: 55px;
+    line-height: 55px;
+    font-size: 1.1rem;
+  }
+
+  .btn-circle-xl {
+    width: 70px;
+    height: 70px;
+    line-height: 70px;
+    font-size: 1.3rem;
+  }
+
+  .sticky-button
+  {
+    padding-bottom: 30px;
+  }
+
+.modal-full {
+    min-width: 90%;
+    margin: 10;
+}
+
+.modal-full,.modal-content {
+    min-height: 20vh;
+    height: 90vh;
+    width: auto;
+}
+
+.carousel-item
+{
+    height: 70vh;
+    text-align: center;
+}
+.carousel-item img
+{
+height: 100%;
+    width: auto;
+    margin:auto;
+}
+.carousel-control-next,
+.carousel-control-prev /*, .carousel-indicators */ {
+    filter: invert(100%);
+}
     </style>
 
 
@@ -61,29 +135,12 @@
   <body>
 
 <header>
-  <div class="collapse bg-dark" id="navbarHeader">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-8 col-md-7 py-4">
-          <h4 class="text-white">About</h4>
-          <p class="text-muted">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
-        </div>
-        <div class="col-sm-4 offset-md-1 py-4">
-          <h4 class="text-white">Contact</h4>
-          <ul class="list-unstyled">
-            <li><a href="#" class="text-white">Follow on Twitter</a></li>
-            <li><a href="#" class="text-white">Like on Facebook</a></li>
-            <li><a href="#" class="text-white">Email me</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
+
   <div class="navbar navbar-dark bg-dark shadow-sm">
     <div class="container">
       <a href="{% url 'home' %}" class="navbar-brand d-flex align-items-center">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-        <strong>Home</strong>
+            <i class="fa fa-camera mr-3" aria-hidden="true"></i>
+          <strong>Home</strong>
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -105,14 +162,13 @@
     </section>
 
   <div class="album py-5 bg-light">
-    <div class="container">
-
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    <div class="container-xl">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
 
         {% if cards|length > 0 %}
         {% for card in cards %}
         <div class="col">
-          <div class="card shadow-sm">
+          <div class="card shadow">
             <img src="{{card.image.url}}" alt="{{card.altText}}">
             <div class="overlay">{{card.title}}</div>
           </div>
@@ -128,13 +184,86 @@
 
 </main>
 
-<footer class="text-muted py-5">
+<div class="sticky-button fixed-bottom container d-flex justify-content-end">
+<a href="#fullscreenModal" role="button" data-toggle="modal">
+  <button class="btn btn-dark btn-circle btn-circle-lg m-1"><i class="fa fa-arrows-alt fa-lg"></i></button>
+</a>
+</div>
 
-</footer>
+
+<div class="modal fade" id="fullscreenModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-full" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{category.title}}</h5>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body p-4" id="result">
+
+                <div id="demo" class="carousel slide container" data-ride="carousel">
+
+                  <!-- Indicators
+                  <ul class="carousel-indicators">
+
+                      {% for i in cards %}
+
+                        {% if forloop.counter0 == 0 %}
+                            <li data-target="#demo" data-slide-to="{{ forloop.counter0 }}" class="active"></li>
+                        {% else %}
+                            <li data-target="#demo" data-slide-to="{{ forloop.counter0 }}"></li>
+                        {% endif %}
+
+                      {% endfor %}
+
+                  </ul>
+                    -->
+                  <!-- The slideshow -->
+                  <div class="carousel-inner">
+
+                      {% for card in cards %}
+
+                            {% if not forloop.first %}
+                                <div class="carousel-item">
+                                  <img src="{{card.image.url}}" alt="{{card.altText}}">
+                                </div>
+                            {% else %}
+                                <div class="carousel-item active">
+                                  <img src="{{card.image.url}}" alt="{{card.altText}}">
+                                </div>
+                            {% endif %}
 
 
-    <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+                      {% endfor %}
 
+                  </div>
+
+                  <!-- Left and right controls -->
+                  <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                  </a>
+                  <a class="carousel-control-next" href="#demo" data-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                  </a>
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
   </body>
 </html>
+
+<!--
+Icons: https://fontawesome.com/v4/icons/
+Circle buttons: https://bootstrapious.com/p/bootstrap-circle-button
+ -->

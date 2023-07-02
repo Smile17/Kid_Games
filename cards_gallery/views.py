@@ -12,3 +12,6 @@ def categoryPage(request, slug):
 
     context = {'category': category, 'cards': cards}
     return render(request, 'category.html', context)
+
+def test(request):
+    return render(request, 'test.html')
