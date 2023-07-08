@@ -272,6 +272,9 @@ color: #9FA6B2;
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 <script>
 function playAudio(audio_id){
@@ -279,18 +282,17 @@ function playAudio(audio_id){
 }
 
 let allSlides = $("#demo").find('.carousel-item');
-console.log(allSlides);
 
 allSlides.each(function(index, el) {
   if (index !== 0) {
     $(this).find('audio')[0].pause();
   }
 });
-
-$("#demo").on('slide.bs.carousel', function(ev) {
+function playSlide(ev) {
   let slides = $(this).find('.carousel-item');
   let pvid = slides[ev.from].querySelectorAll('audio')[0];
   let vid = slides[ev.to].querySelectorAll('audio')[0];
+  console.log(vid);
   let isPlaying = vid.currentTime > 0 && vid.readyState > 2;
 
   vid.play();
@@ -298,12 +300,17 @@ $("#demo").on('slide.bs.carousel', function(ev) {
   if (isPlaying) {
     pvid.pause();
   }
-});
+}
+$("#demo").on('slide.bs.carousel', playSlide);
+function playSlide0(ev) {
+  let slide = $("#demo").find('.carousel-item.active');
+  let vid = slide[0].querySelectorAll('audio')[0];
+  vid.play();
+}
+
+$("#fullscreenModal").on('show.bs.modal', playSlide0);
 
 </script>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
   </body>
 </html>
