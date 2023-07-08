@@ -12,11 +12,11 @@ class Category(models.Model):
 
     def __str__(self):
         return self.title
-
 class Card(models.Model):
     title = models.CharField(max_length=100)
     image = ResizedImageField(size=[2878, 1618], crop=['middle', 'center'], default='default_land.jpg',
                               upload_to='category_landscape')
+    audio = models.FileField(upload_to='audio', default='default_audio.mp3')
     altText = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
