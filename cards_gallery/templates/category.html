@@ -1,7 +1,7 @@
 {% load static %}
 <!doctype html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -12,196 +12,217 @@
     <link rel="canonical" href="">
 
     <!-- Bootstrap core CSS -->
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <style>
-    .container,.container-fluid,.container-lg,.container-md,.container-sm,.container-xl,.container-xxl{width:100%;padding-right:var(--bs-gutter-x,.75rem);padding-left:var(--bs-gutter-x,.75rem);margin-right:auto;margin-left:auto}@media (min-width:576px){.container,.container-sm{max-width:540px}}@media (min-width:768px){.container,.container-md,.container-sm{max-width:720px}}@media (min-width:992px){.container,.container-lg,.container-md,.container-sm{max-width:960px}}@media (min-width:1200px){.container,.container-lg,.container-md,.container-sm,.container-xl{max-width:1140px}}@media (min-width:1400px){.container,.container-lg,.container-md,.container-sm,.container-xl,.container-xxl{max-width:1320px}}
-    .col
-    {
-        padding-top: 15px;
+    .container,.container-fluid,.container-lg,.container-md,.container-sm,.container-xl,.container-xxl{
+        width:100%;
+        padding-right:var(--bs-gutter-x,.75rem);
+        padding-left:var(--bs-gutter-x,.75rem);
+        margin-right:auto;
+        margin-left:auto
     }
-
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
+    @media (min-width:576px){
+        .container,.container-sm{
+            max-width:540px
         }
-      }
-      /* The overlay effect - lays on top of the container and over the image */
-    .overlay {
-      position: absolute;
-      bottom: 0;
-      background: rgb(0, 0, 0);
-      background: rgba(0, 0, 0, 0.5); /* Black see-through */
-      color: #f1f1f1;
-      width: 100%;
-      transition: .5s ease;
-      opacity:0;
-      color: white;
-      font-size: 20px;
-      padding: 20px;
-      text-align: center;
     }
-  img{
-  max-width: 100%;
-  transition: .5s ease;
-  }
+    @media (min-width:768px){
+        .container,.container-md,.container-sm{
+            max-width:720px
+        }
+    }
+    @media (min-width:992px){
+        .container,.container-lg,.container-md,.container-sm{
+            max-width:960px
+        }
+    }
+    @media (min-width:1200px){
+        .container,.container-lg,.container-md,.container-sm,.container-xl{
+            max-width:1140px
+        }
+    }
+    @media (min-width:1400px){
+        .container,.container-lg,.container-md,.container-sm,.container-xl,.container-xxl{
+            max-width:1320px
+        }
+    }
+     .col {
+         padding-top: 15px;
+    }
+     .bd-placeholder-img {
+         font-size: 1.125rem;
+         text-anchor: middle;
+         -webkit-user-select: none;
+         -moz-user-select: none;
+         user-select: none;
+    }
+     @media (min-width: 768px) {
+         .bd-placeholder-img-lg {
+             font-size: 3.5rem;
+        }
+    }
+    /* The overlay effect - lays on top of the container and over the image */
+     .overlay {
+         position: absolute;
+         bottom: 0;
+         background: rgb(0, 0, 0);
+         background: rgba(0, 0, 0, 0.5);
+        /* Black see-through */
+         color: #f1f1f1;
+         width: 100%;
+         transition: .5s ease;
+         opacity:0;
+         color: white;
+         font-size: 20px;
+         padding: 20px;
+         text-align: center;
+    }
+     img{
+         max-width: 100%;
+         transition: .5s ease;
+    }
     /* When you mouse over the container, fade in the overlay title */
-    .card:hover img{
-      opacity: 0.5;
+     .card:hover img{
+         opacity: 0.5;
     }
-    .card:hover .overlay {
-      opacity: 1;
+     .card:hover .overlay {
+         opacity: 1;
     }
-
     /* Round button */
-      .btn-circle {
-    width: 45px;
-    height: 45px;
-    line-height: 45px;
-    text-align: center;
-    padding: 0;
-    border-radius: 50%;
-  }
+     .btn-circle {
+         width: 45px;
+         height: 45px;
+         line-height: 45px;
+         text-align: center;
+         padding: 0;
+         border-radius: 50%;
+    }
+     .btn-circle i {
+         position: relative;
+         top: -1px;
+    }
+     .btn-circle-sm {
+         width: 35px;
+         height: 35px;
+         line-height: 35px;
+         font-size: 0.9rem;
+    }
+     .btn-circle-lg {
+         width: 55px;
+         height: 55px;
+         line-height: 55px;
+         font-size: 1.1rem;
+    }
+     .btn-circle-xl {
+         width: 70px;
+         height: 70px;
+         line-height: 70px;
+         font-size: 1.3rem;
+    }
+     .sticky-button {
+         padding-bottom: 30px;
+    }
+     .modal-full {
+         min-width: 90%;
+         margin: 10;
+    }
+     .modal-full,.modal-content {
+         min-height: 20vh;
+         height: 90vh;
+         width: auto;
+    }
+     .carousel-item {
+         height: 70vh;
+         text-align: center;
+    }
+     .carousel-item img {
+         height: 100%;
+         width: auto;
+         margin:auto;
+    }
+     .carousel-control-next, .carousel-control-prev
+    /*, .carousel-indicators */
+     {
+         filter: invert(100%);
+    }
+     .carousel-item .audio-btn{
+         position: absolute;
+         top: 10%;
+         left: 80%;
+         transform: translate(-10%, -80%);
+         -ms-transform: translate(-10%, -80%);
+         border-radius: 50%;
+    }
+     .white {
+         color: #FBFBFB;
+    }
+     .white:hover {
+         color: #9FA6B2;
+    }
 
-  .btn-circle i {
-    position: relative;
-    top: -1px;
-  }
 
-  .btn-circle-sm {
-    width: 35px;
-    height: 35px;
-    line-height: 35px;
-    font-size: 0.9rem;
-  }
-
-  .btn-circle-lg {
-    width: 55px;
-    height: 55px;
-    line-height: 55px;
-    font-size: 1.1rem;
-  }
-
-  .btn-circle-xl {
-    width: 70px;
-    height: 70px;
-    line-height: 70px;
-    font-size: 1.3rem;
-  }
-
-  .sticky-button
-  {
-    padding-bottom: 30px;
-  }
-
-.modal-full {
-    min-width: 90%;
-    margin: 10;
-}
-
-.modal-full,.modal-content {
-    min-height: 20vh;
-    height: 90vh;
-    width: auto;
-}
-
-.carousel-item
-{
-    height: 70vh;
-    text-align: center;
-}
-.carousel-item img
-{
-height: 100%;
-    width: auto;
-    margin:auto;
-}
-.carousel-control-next,
-.carousel-control-prev /*, .carousel-indicators */ {
-    filter: invert(100%);
-}
-.carousel-item .audio-btn{
-    position: absolute;
-  top: 10%;
-  left: 80%;
-  transform: translate(-10%, -80%);
-  -ms-transform: translate(-10%, -80%);
-  border-radius: 50%;
-}
-.white {
-color: #FBFBFB;
-}
-.white:hover {
-color: #9FA6B2;
-}
     </style>
 
 
-  </head>
-  <body>
+</head>
+<body>
 
 <header>
 
-  <div class="navbar navbar-dark bg-dark shadow-sm">
-    <div class="container">
-      <a href="{% url 'home' %}" class="navbar-brand d-flex align-items-center">
-            <i class="fa fa-camera mr-3" aria-hidden="true"></i>
-          <strong>Home</strong>
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <div class="navbar navbar-dark bg-dark shadow-sm">
+        <div class="container">
+            <a href="{% url 'home' %}" class="navbar-brand d-flex align-items-center">
+                <i class="fa fa-camera mr-3" aria-hidden="true"></i>
+                <strong>Home</strong>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader"
+                    aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
     </div>
-  </div>
 </header>
 
 <main>
 
     <section class="py-5 text-center container">
-      <div class="row py-lg-5">
-        <div class="col-lg-6 col-md-8 mx-auto">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
 
-          <h1 class="fw-light">{{category.title}}</h1>
+                <h1 class="fw-light">{{category.title}}</h1>
 
+            </div>
         </div>
-      </div>
     </section>
 
-  <div class="album py-5 bg-light">
-    <div class="container-xl">
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
+    <div class="album py-5 bg-light">
+        <div class="container-xl">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
 
-        {% if cards|length > 0 %}
-        {% for card in cards %}
-        <div class="col">
-          <div class="card shadow">
-            <img src="{{card.image.url}}" alt="{{card.altText}}">
-            <div class="overlay">{{card.title}}</div>
-          </div>
+                {% if cards|length > 0 %}
+                {% for card in cards %}
+                <div class="col">
+                    <div class="card shadow">
+                        <img src="{{card.image.url}}" alt="{{card.altText}}">
+                        <div class="overlay">{{card.title}}</div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <h2>No image for selected category</h2>
+                {% endif %}
+
+            </div>
         </div>
-        {% endfor %}
-        {% else %}
-        <h2>No image for selected category</h2>
-        {% endif %}
-
-      </div>
     </div>
-  </div>
 
 </main>
 
 <div class="sticky-button fixed-bottom container d-flex justify-content-end">
-<a href="#fullscreenModal" role="button" data-toggle="modal">
-  <button class="btn btn-dark btn-circle btn-circle-lg m-1"><i class="fa fa-arrows-alt fa-lg"></i></button>
-</a>
+    <a href="#fullscreenModal" role="button" data-toggle="modal">
+        <button class="btn btn-dark btn-circle btn-circle-lg m-1"><i class="fa fa-arrows-alt fa-lg"></i></button>
+    </a>
 </div>
 
 
@@ -216,55 +237,56 @@ color: #9FA6B2;
 
                 <div id="demo" class="carousel slide container" data-ride="carousel">
 
-                  <!-- Indicators
-                  <ul class="carousel-indicators">
+                    <!-- Indicators
+                    <ul class="carousel-indicators">
 
-                      {% for i in cards %}
+                        {% for i in cards %}
 
-                        {% if forloop.counter0 == 0 %}
-                            <li data-target="#demo" data-slide-to="{{ forloop.counter0 }}" class="active"></li>
+                          {% if forloop.counter0 == 0 %}
+                              <li data-target="#demo" data-slide-to="{{ forloop.counter0 }}" class="active"></li>
+                          {% else %}
+                              <li data-target="#demo" data-slide-to="{{ forloop.counter0 }}"></li>
+                          {% endif %}
+
+                        {% endfor %}
+
+                    </ul>
+                      -->
+                    <!-- The slideshow -->
+                    <div class="carousel-inner">
+
+                        {% for card in cards %}
+
+                        {% if not forloop.first %}
+                        <div class="carousel-item">
+                            <audio src="{{ card.audio.url }}" id="audio_{{forloop.counter0}}"></audio>
+                            <div class="audio-btn" onclick="playAudio('audio_{{forloop.counter0}}')"><i
+                                    class="fa fa-music fa-lg white" aria-hidden="true"></i></div>
+                            <img src="{{card.image.url}}" alt="{{card.altText}}">
+                        </div>
                         {% else %}
-                            <li data-target="#demo" data-slide-to="{{ forloop.counter0 }}"></li>
+                        <div class="carousel-item active">
+                            <audio src="{{ card.audio.url }}" id="audio_{{forloop.counter0}}"></audio>
+                            <div class="audio-btn" onclick="playAudio('audio_{{forloop.counter0}}')"><i
+                                    class="fa fa-music fa-lg white" aria-hidden="true"></i></div>
+                            <img src="{{card.image.url}}" alt="{{card.altText}}">
+                        </div>
                         {% endif %}
 
-                      {% endfor %}
 
-                  </ul>
-                    -->
-                  <!-- The slideshow -->
-                  <div class="carousel-inner">
+                        {% endfor %}
 
-                      {% for card in cards %}
+                    </div>
 
-                            {% if not forloop.first %}
-                                <div class="carousel-item">
-                                    <audio src="{{ card.audio.url }}" id="audio_{{forloop.counter0}}"></audio>
-                                    <div class="audio-btn" onclick="playAudio('audio_{{forloop.counter0}}')"><i class="fa fa-music fa-lg white" aria-hidden="true"></i></div>
-                                  <img src="{{card.image.url}}" alt="{{card.altText}}">
-                                </div>
-                            {% else %}
-                                <div class="carousel-item active">
-                                  <audio src="{{ card.audio.url }}" id="audio_{{forloop.counter0}}"></audio>
-                                    <div class="audio-btn" onclick="playAudio('audio_{{forloop.counter0}}')"><i class="fa fa-music fa-lg white" aria-hidden="true"></i></div>
-                                  <img src="{{card.image.url}}" alt="{{card.altText}}">
-                                </div>
-                            {% endif %}
-
-
-                      {% endfor %}
-
-                  </div>
-
-                  <!-- Left and right controls -->
-                  <a class="carousel-control-prev" href="#demo" data-slide="prev">
-                    <span class="carousel-control-prev-icon"></span>
-                  </a>
-                  <a class="carousel-control-next" href="#demo" data-slide="next">
-                    <span class="carousel-control-next-icon"></span>
-                  </a>
+                    <!-- Left and right controls -->
+                    <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </a>
+                    <a class="carousel-control-next" href="#demo" data-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </a>
 
                 </div>
-
 
 
             </div>
@@ -272,9 +294,15 @@ color: #9FA6B2;
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 
 <script>
 function playAudio(audio_id){
@@ -304,15 +332,18 @@ function playSlide(ev) {
 $("#demo").on('slide.bs.carousel', playSlide);
 function playSlide0(ev) {
   let slide = $("#demo").find('.carousel-item.active');
-  let vid = slide[0].querySelectorAll('audio')[0];
-  vid.play();
+  if (slide.length > 0){
+      let vid = slide[0].querySelectorAll('audio')[0];
+      vid.play();
+  }
 }
 
 $("#fullscreenModal").on('show.bs.modal', playSlide0);
 
+
 </script>
 
-  </body>
+</body>
 </html>
 
 <!--
