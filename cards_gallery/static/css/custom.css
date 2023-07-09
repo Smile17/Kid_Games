@@ -1,0 +1,148 @@
+/* Conainer rules */
+ .container,.container-fluid,.container-lg,.container-md,.container-sm,.container-xl,.container-xxl{
+     width:100%;
+     padding-right:var(--bs-gutter-x,.75rem);
+     padding-left:var(--bs-gutter-x,.75rem);
+     margin-right:auto;
+     margin-left:auto
+}
+ @media (min-width:576px){
+     .container,.container-sm{
+         max-width:540px
+    }
+}
+ @media (min-width:768px){
+     .container,.container-md,.container-sm{
+         max-width:720px
+    }
+}
+ @media (min-width:992px){
+     .container,.container-lg,.container-md,.container-sm{
+         max-width:960px
+    }
+}
+ @media (min-width:1200px){
+     .container,.container-lg,.container-md,.container-sm,.container-xl{
+         max-width:1140px
+    }
+}
+ @media (min-width:1400px){
+     .container,.container-lg,.container-md,.container-sm,.container-xl,.container-xxl{
+         max-width:1320px
+    }
+}
+ .col {
+     padding-top: 15px;
+}
+ .bd-placeholder-img {
+     font-size: 1.125rem;
+     text-anchor: middle;
+     -webkit-user-select: none;
+     -moz-user-select: none;
+     user-select: none;
+}
+ @media (min-width: 768px) {
+     .bd-placeholder-img-lg {
+         font-size: 3.5rem;
+    }
+}
+/* The overlay effect - lays on top of the container and over the image */
+ .overlay {
+     position: absolute;
+     bottom: 0;
+     background: rgb(0, 0, 0);
+     background: rgba(0, 0, 0, 0.5);
+    /* Black see-through */
+     color: #f1f1f1;
+     width: 100%;
+     transition: .5s ease;
+     opacity:0;
+     color: white;
+     font-size: 20px;
+     padding: 20px;
+     text-align: center;
+}
+ img{
+     transition: .5s ease;
+}
+/* When you mouse over the container, fade in the overlay title */
+ .card:hover img{
+     opacity: 0.5;
+}
+ .card:hover .overlay {
+     opacity: 1;
+}
+/* Round button */
+ .btn-circle {
+     width: 45px;
+     height: 45px;
+     line-height: 45px;
+     text-align: center;
+     padding: 0;
+     border-radius: 50%;
+}
+ .btn-circle i {
+     position: relative;
+     top: -1px;
+}
+ .btn-circle-sm {
+     width: 35px;
+     height: 35px;
+     line-height: 35px;
+     font-size: 0.9rem;
+}
+ .btn-circle-lg {
+     width: 55px;
+     height: 55px;
+     line-height: 55px;
+     font-size: 1.1rem;
+}
+ .btn-circle-xl {
+     width: 70px;
+     height: 70px;
+     line-height: 70px;
+     font-size: 1.3rem;
+}
+ .sticky-button {
+     padding-bottom: 30px;
+}
+/* Modal */
+ .modal-full {
+     min-width: 90%;
+     margin: 10;
+}
+ .modal-full,.modal-content {
+     min-height: 20vh;
+     height: 90vh;
+     width: auto;
+}
+ .carousel-item {
+     height: 70vh;
+     text-align: center;
+}
+ .carousel-item img {
+     height: 100%;
+     width: auto;
+     margin:auto;
+}
+/* Carousel */
+ .carousel-control-next, .carousel-control-prev
+/*, .carousel-indicators */
+ {
+     filter: invert(100%);
+}
+ .carousel-item .audio-btn{
+     position: absolute;
+     top: 10%;
+     left: 80%;
+     transform: translate(-10%, -80%);
+     -ms-transform: translate(-10%, -80%);
+     border-radius: 50%;
+}
+/* White color for icons */
+ .white {
+     color: #FBFBFB;
+}
+ .white:hover {
+     color: #9FA6B2;
+}
