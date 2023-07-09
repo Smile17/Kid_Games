@@ -146,3 +146,13 @@
  .white:hover {
      color: #9FA6B2;
 }
+
+/* Card board */
+ .card-board {
+    width: 100%;
+    display: -ms-flex;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+ }
