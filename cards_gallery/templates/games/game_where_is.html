@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main>
+    <section class="py-3 text-center container">
+        <div class="row py-lg-3">
+            <div class="col-lg-6 col-md-8 mx-auto">
+
+                <h1 class="fw-light">{{answer.title}}</h1>
+
+            </div>
+        </div>
+    </section>
+<div class="bg-light">
+    <div class="card-board">
+        {% for card in cards %}
+                <div id="{{card.slug}}" class="card card-item shadow">
+                        <img class="card-image" src="{{card.image.url}}" alt="{{card.altText}}">
+                    </div>
+                {% endfor %}
+    </div>
+</div>
+<!-- Sticky buttons -->
+<div class="sticky-button fixed-bottom container d-flex justify-content-end">
+    <a role="button" href="{% url 'image-game' slug %}">
+        <button id = "next-button" class="btn btn-dark btn-circle btn-circle-lg m-1 disabled">
+            <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+    </a>
+</div>
+
+</main>
+{% endblock content %}
+
+{% block script %}
+    <script>
+         $('.card-item').click(function() {
+         if(this.id == '{{answer.slug}}') {
+            console.log('You are right');
+         }
+         else {
+            console.log('You are wrong');
+            $(this).css("outline","10px solid red");
+         }
+         document.getElementById('{{answer.slug}}').classList.add('selected-correct');
+         document.getElementById('next-button').classList.remove('disabled');
+    });
+    </script>
+{% endblock script %}

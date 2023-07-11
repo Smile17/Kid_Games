@@ -2,8 +2,8 @@
 
 {% block content %}
 <main>
-    <section class="py-5 text-center container">
-        <div class="row py-lg-5">
+    <section class="py-3 text-center container">
+        <div class="row py-lg-3">
             <div class="col-lg-6 col-md-8 mx-auto">
 
                 <h1 class="fw-light">{{category.title}}</h1>
@@ -19,10 +19,12 @@
                 {% if cards|length > 0 %}
                 {% for card in cards %}
                 <div class="col">
+                    <a href="{% url 'image-category' card.slug %}">
                     <div class="card shadow">
                         <img src="{{card.image.url}}" alt="{{card.altText}}">
                         <div class="overlay">{{card.title}}</div>
                     </div>
+                    </a>
                 </div>
                 {% endfor %}
                 {% else %}
@@ -34,7 +36,7 @@
     </div>
 </main>
 
-<!-- Sticky button with modal -->
+<!-- Sticky buttons -->
 <div class="sticky-button fixed-bottom container d-flex justify-content-end">
     <a role="button" href="{% url 'image-game' category.slug %}">
         <button class="btn btn-dark btn-circle btn-circle-lg m-1"><i class="fa fa-gamepad" aria-hidden="true"></i></button>

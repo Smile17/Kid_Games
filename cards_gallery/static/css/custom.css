@@ -149,10 +149,21 @@
 
 /* Card board */
  .card-board {
-    width: 100%;
+ padding: 20px;
+ margin:auto;
+    width: 80%;
     display: -ms-flex;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+ }
+
+ .card-item {
+    width: 30rem;
+    margin: 5px;
+    outline-offset: -4px;
+ }
+ .card-item.selected-correct {
+    outline: 10px solid green;
  }
