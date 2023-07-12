@@ -28,6 +28,8 @@
 
 <!-- Sticky buttons -->
 <div class="sticky-button fixed-bottom container d-flex justify-content-end">
+        {% block sticky_button %}
+        {% endblock sticky_button %}
         <!-- if progress_width < 100 -->
         <a id = "next-button" class = "text-light disabled" role="button" onclick="saveProgress()" href="{% url 'image-game' game_num slug %}">
             <button class="btn btn-dark btn-circle btn-circle-lg m-1 disabled">
@@ -59,7 +61,7 @@
             document.getElementById('next-button').style.display = 'none';
         }
 
-         $('.card-item').click(function() {
+         $('.card-item.variant').click(function() {
          var keyBtn = 'next-button';
          if (progress_width >= 100) {
             keyBtn = 'end-button';
@@ -67,14 +69,7 @@
          var next_button = document.getElementById(keyBtn);
          next_button.classList.remove('disabled');
          next_button.getElementsByTagName('button')[0].classList.remove('disabled');
-         if(this.id == '{{answer.slug}}') {
-            console.log('You are right');
-         }
-         else {
-            console.log('You are wrong');
-            $(this).css("outline","10px solid red");
-         }
-         document.getElementById('{{answer.slug}}').classList.add('selected-correct');
+
     });
     function saveProgress() {
         sessionStorage.setItem(key, parseInt(num_visits) + 1);
@@ -91,5 +86,7 @@
                 console.log(e);
             }
         }
+        {% block add_script %}
+        {% endblock add_script %}
     </script>
 {% endblock script %}

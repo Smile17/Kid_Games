@@ -160,12 +160,18 @@
  }
 
  .card-item {
-    width: 30rem;
+    width: 23rem;
     margin: 5px;
     outline-offset: -4px;
  }
  .card-item.selected-correct {
     outline: 10px solid green;
+ }
+ .card-item.selected {
+    outline: 10px solid #0d6efd;
+ }
+ .card-item.selected-wrong {
+    outline: 10px solid red;
  }
 
 /* Disabled button */
@@ -177,3 +183,5 @@ a.disabled {
     margin-top: -10px;
     height: 5px;
  }
+
+

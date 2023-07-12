@@ -7,13 +7,39 @@
 
 {% block game %}
 <div class="bg-light">
-    <div class="card-board">
+
+</div>
+
+<div class="bg-light">
+    <div class="row">
+      <div class="card-board justify-content-end col-3">
+          <div class="card card-item shadow center" onclick="playAudio('audio_answer0')">
+             <img class="card-image" src="/uploads/assets/notes.png" alt="{{card.altText}}">
+             <audio src="{{ answer.audio.url }}" id="audio_answer0"></audio>
+         </div>
+      </div>
+      <div class="card-board col-7">
         {% for card in cards %}
-            <div id="{{card.slug}}" class="card card-item shadow" onclick="playAudio('audio_{{forloop.counter0}}')">
+            <div id="{{card.slug}}" class="card card-item shadow variant" onclick="playAudio('audio_{{forloop.counter0}}')">
                     <img class="card-image" src="{{card.image.url}}" alt="{{card.altText}}">
                 <audio src="{{ card.audio.url }}" id="audio_{{forloop.counter0}}"></audio>
              </div>
         {% endfor %}
     </div>
+    </div>
 </div>
 {% endblock game %}
+
+{% block add_script %}
+document.querySelectorAll(".card-item.variant").forEach(el => el.addEventListener("click", checkAnswer));
+function checkAnswer(event) {
+    if(this.id == '{{answer.slug}}') {
+        console.log('You are right');
+     }
+     else {
+        console.log('You are wrong');
+        $(this).css("outline","10px solid red");
+     }
+     document.getElementById('{{answer.slug}}').classList.add('selected-correct');
+}
+{% endblock add_script %}

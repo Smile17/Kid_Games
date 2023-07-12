@@ -5,15 +5,59 @@
 {% endblock title %}
 
 {% block game %}
-<h1>SOUND GAME</h1>
 <div class="bg-light">
-    <div class="card-board">
-        {% for card in cards %}
-            <div id="{{card.slug}}" class="card card-item shadow" onclick="playAudio('audio_{{forloop.counter0}}')">
-                    <img class="card-image" src="{{card.image.url}}" alt="{{card.altText}}">
-                <audio src="{{ card.audio.url }}" id="audio_{{forloop.counter0}}"></audio>
-             </div>
-        {% endfor %}
+    <div class="row">
+      <div class="card-board justify-content-end col-3">
+          <div class="card card-item shadow center">
+                <img class="card-image" src="{{answer.image.url}}" alt="{{answer.altText}}">
+         </div>
+      </div>
+        <div class="card-board col-7">
+            {% for card in cards %}
+                <div id="{{card.slug}}" class="card card-item shadow variant" onclick="playAudio('audio_{{forloop.counter0}}')">
+                    <img class="card-image" src="/uploads/assets/notes.png" alt="{{card.altText}}">
+                    <audio src="{{ card.audio.url }}" id="audio_{{forloop.counter0}}"></audio>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 </div>
 {% endblock game %}
+
+{% block sticky_button %}
+<a id = "check-button" class = "text-light disabled" role="button" onclick="check()">
+    <button class="btn btn-dark btn-circle btn-circle-lg m-1 disabled">
+        <i class="fa fa-check" aria-hidden="true"></i>
+    </button>
+</a>
+{% endblock sticky_button %}
+
+{% block add_script %}
+var cards = document.querySelectorAll(".card-item.variant");
+cards.forEach(el => el.addEventListener("click", selectAnswer));
+function selectAnswer(event) {
+    cards.forEach(el => el.classList.remove('selected'));
+    document.getElementById(this.id).classList.add('selected');
+
+     var keyBtn = 'next-button';
+     if (progress_width >= 100) {
+        keyBtn = 'end-button';
+    }
+     var check_button = document.getElementById('check-button');
+     check_button.classList.remove('disabled');
+     check_button.getElementsByTagName('button')[0].classList.remove('disabled');
+}
+function check(){
+    var selected = document.getElementsByClassName('selected')[0];
+    selected.classList.remove('selected');
+    if(selected.id == '{{answer.slug}}') {
+        console.log('You are right');
+     }
+     else {
+        console.log('You are wrong');
+        selected.classList.add('selected-wrong');
+     }
+     document.getElementById('{{answer.slug}}').classList.add('selected-correct');
+}
+{% endblock add_script %}
+
