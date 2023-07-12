@@ -1,22 +1,31 @@
 {% extends "base.html" %}
 
+{% block navbar %}
+{% endblock navbar %}
+
 {% block content %}
+<div class="sticky-button fixed-top container d-flex justify-content-end">
+    <a href="{% url 'image-category'  slug %}">
+        <i class="fa fa-times fa-lg text-dark" aria-hidden="true"></i>
+    </a>
+</div>
+
 <main>
     <section class="py-3 text-center container">
         <div class="row py-lg-3">
-            <div class="col-lg-6 col-md-8 mx-auto">
-
+            <div class="col-lg-6 col-md-8 mx-auto" onclick="playAudio('audio_answer')">
                 <h1 class="fw-light">{{answer.title}}</h1>
-
+                <audio src="{{ answer.audio.url }}" id="audio_answer" autoplay></audio>
             </div>
         </div>
     </section>
 <div class="bg-light">
     <div class="card-board">
         {% for card in cards %}
-                <div id="{{card.slug}}" class="card card-item shadow">
+                <div id="{{card.slug}}" class="card card-item shadow" onclick="playAudio('audio_{{forloop.counter0}}')">
                         <img class="card-image" src="{{card.image.url}}" alt="{{card.altText}}">
-                    </div>
+                        <audio src="{{ card.audio.url }}" id="audio_{{forloop.counter0}}"></audio>
+                 </div>
                 {% endfor %}
     </div>
 </div>
@@ -44,5 +53,9 @@
          document.getElementById('{{answer.slug}}').classList.add('selected-correct');
          document.getElementById('next-button').classList.remove('disabled');
     });
+
+    function playAudio(audio_id){
+               document.getElementById(audio_id).play();
+        }
     </script>
 {% endblock script %}

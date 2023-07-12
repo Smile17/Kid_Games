@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import *
-from random import sample
+from random import sample, choice
 
 
 
@@ -26,12 +26,11 @@ def category_page(request, slug):
 
 def game_page(request, slug):
     category = Card.objects.get(slug=slug)
-    #cards = category.cards.all()[:4]
     pks = category.cards.values_list('slug', flat=True)
     random_pk = sample(list(pks), 4)
     cards = category.cards.filter(slug__in=random_pk)
 
-    answer = cards[0]
+    answer = choice(cards)  # It seems without choice, it takes first images in DB more often
 
     context = {"slug": slug, "answer": answer, "cards": cards}
     return render(request, "games/game_where_is.html", context)
