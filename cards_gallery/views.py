@@ -3,7 +3,6 @@ from .models import *
 from random import sample, choice
 
 
-
 def home(request):
     categories = Card.objects.filter(is_category=True)
     print(categories)
@@ -12,8 +11,6 @@ def home(request):
 
 
 def category_page(request, slug):
-    #slug = slug.split('/')[-1]
-    #print(slug)
     category = Card.objects.get(slug=slug)
     print(category)
     cards = category.cards.all()
@@ -22,25 +19,24 @@ def category_page(request, slug):
     return render(request, "cards_gallery/category.html", context)
 
 
+games = {
+    0: "games/game_where_is.html",
+    1: "games/game_where_is_sound.html",
+}
 
 
 def game_page(request, game_num, slug):
-    NUM_CARDS = 10
-    game_num = str(game_num)
-    num_visits = request.session.get(game_num + '_num_visits', 0)
-    print(num_visits)
-    #request.session[game_num + '_num_visits'] = num_visits + 1
+    # Choose the game
+    game_key, template_path = choice(list(games.items()))
 
     category = Card.objects.get(slug=slug)
     pks = category.cards.values_list('slug', flat=True)
     random_pk = sample(list(pks), 4)
     cards = category.cards.filter(slug__in=random_pk)
+    answer = choice(cards)  # It seems without choice it takes first images in DB more often
 
-    answer = choice(cards)  # It seems without choice, it takes first images in DB more often
-
-    context = {"game_num": game_num, "slug": slug, "answer": answer, "cards": cards,
-               "progress_width": 100 * num_visits / NUM_CARDS, "next_progress": 100 * (num_visits + 1) / NUM_CARDS}
-    return render(request, "games/game_where_is.html", context)
+    context = {"game_num": game_num, "slug": slug, "answer": answer, "cards": cards}
+    return render(request, template_path, context)
 
 
 def test(request):
