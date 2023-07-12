@@ -1,7 +1,9 @@
 {% extends "base.html" %}
+{% load random_numbers %}
 
 {% block content %}
 <main>
+    <p>{% random_int 100 999 %}</p>
     <section class="py-3 text-center container">
         <div class="row py-lg-3">
             <div class="col-lg-6 col-md-8 mx-auto">
@@ -38,7 +40,7 @@
 
 <!-- Sticky buttons -->
 <div class="sticky-button fixed-bottom container d-flex justify-content-end">
-    <a role="button" href="{% url 'image-game' category.slug %}">
+    <a role="button" href="{% url 'image-game' 123 category.slug %}">
         <button class="btn btn-dark btn-circle btn-circle-lg m-1"><i class="fa fa-gamepad" aria-hidden="true"></i></button>
     </a>
     <a href="#fullscreenModal" role="button" data-toggle="modal">

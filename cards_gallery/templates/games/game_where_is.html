@@ -19,6 +19,9 @@
             </div>
         </div>
     </section>
+    <div class="progress">
+      <div class="progress-bar bg-dark" role="progressbar" style="width: {{progress_width}}%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
 <div class="bg-light">
     <div class="card-board">
         {% for card in cards %}
@@ -31,10 +34,20 @@
 </div>
 <!-- Sticky buttons -->
 <div class="sticky-button fixed-bottom container d-flex justify-content-end">
-    <a role="button" href="{% url 'image-game' slug %}">
-        <button id = "next-button" class="btn btn-dark btn-circle btn-circle-lg m-1 disabled">
-            <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
-    </a>
+
+        {% if next_progress < 100 %}
+        <a id = "next-button" class = "text-light disabled" role="button" onclick="saveProgress()" href="{% url 'image-game' game_num slug %}">
+            <button class="btn btn-dark btn-circle btn-circle-lg m-1 disabled">
+                <i class="fa fa-chevron-right" aria-hidden="true"></i>
+            </button>
+        </a>
+        {% else %}
+          <a id = "next-button" class = "text-light disabled" role="button" onclick="saveProgress()" href="{% url 'image-category' slug %}">
+            <button class="btn btn-dark btn-circle btn-circle-lg m-1 disabled">
+                <i class="fa fa-trophy" aria-hidden="true"></i>
+            </button>
+          </a>
+        {% endif %}
 </div>
 
 </main>
@@ -43,6 +56,9 @@
 {% block script %}
     <script>
          $('.card-item').click(function() {
+         var next_button = document.getElementById('next-button');
+         next_button.classList.remove('disabled');
+         next_button.getElementsByTagName('button')[0].classList.remove('disabled');
          if(this.id == '{{answer.slug}}') {
             console.log('You are right');
          }
@@ -51,11 +67,21 @@
             $(this).css("outline","10px solid red");
          }
          document.getElementById('{{answer.slug}}').classList.add('selected-correct');
-         document.getElementById('next-button').classList.remove('disabled');
     });
-
-    function playAudio(audio_id){
-               document.getElementById(audio_id).play();
+    function saveProgress() {
+        var key = {{game_num}} + '_num_visits';
+        var num_visits = sessionStorage.getItem(key) || 0;
+        sessionStorage.setItem(key, parseInt(num_visits) + 1);
+        alert(key);
+        alert(num_visits);
+    }
+    function playAudio(audio_id) {
+            var audio = document.getElementById(audio_id);
+            try {
+                audio.play();
+            } catch (e) {
+                console.log(e);
+            }
         }
     </script>
 {% endblock script %}

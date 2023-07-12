@@ -167,3 +167,13 @@
  .card-item.selected-correct {
     outline: 10px solid green;
  }
+
+/* Disabled button */
+a.disabled {
+  pointer-events: none;
+}
+/* Progress bar */
+ .progress {
+    margin-top: -10px;
+    height: 5px;
+ }
