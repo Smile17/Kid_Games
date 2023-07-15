@@ -73,6 +73,18 @@
     });
     function saveProgress() {
         sessionStorage.setItem(key, parseInt(num_visits) + 1);
+
+        var POST_URL = "{% url 'image-game' game_num slug%}";
+        $.ajax({
+            url: POST_URL,
+            type: "POST",
+            data: {
+                'num_visits': num_visits + 1
+            },
+            success: function (data) {
+                alert(data);
+            }
+        }); // end ajax
     }
     function endGame() {
         var key = {{game_num}} + '_num_visits';

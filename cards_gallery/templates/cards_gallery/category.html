@@ -37,10 +37,10 @@
         </div>
     </div>
 </main>
-
+{% random_int 100 999 as random_num %}
 <!-- Sticky buttons -->
 <div class="sticky-button fixed-bottom container d-flex justify-content-end">
-    <a role="button" href="{% url 'image-game' 123 category.slug %}">
+    <a role="button" href="{% url 'image-game' random_num category.slug %}">
         <button class="btn btn-dark btn-circle btn-circle-lg m-1"><i class="fa fa-gamepad" aria-hidden="true"></i></button>
     </a>
     <a href="#fullscreenModal" role="button" data-toggle="modal">

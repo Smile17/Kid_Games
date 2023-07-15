@@ -1,27 +1,11 @@
 from django.shortcuts import render
 from .models import *
 from random import sample, choice
-
-
-def home(request):
-    categories = Card.objects.filter(is_category=True)
-    print(categories)
-    context = {"categories": categories}
-    return render(request, "cards_gallery/index.html", context)
-
-
-def category_page(request, slug):
-    category = Card.objects.get(slug=slug)
-    print(category)
-    cards = category.cards.all()
-
-    context = {"category": category, "cards": cards}
-    return render(request, "cards_gallery/category.html", context)
-
+from cards_gallery.models import Card
 
 games = {
-    0: "games/game_where_is.html",
-    1: "games/game_where_is_sound.html",
+    0: "cards_games/game_where_is.html",
+    1: "cards_games/game_where_is_sound.html",
 }
 
 
@@ -30,7 +14,7 @@ def game_page(request, game_num, slug):
         print("AAAAAAAAAAAAAA")
         data = request.POST.get('num_visits')
         print(data)
-
+    print("BBBBB")
     # Choose the game
     game_key, template_path = choice(list(games.items()))
 
@@ -44,5 +28,3 @@ def game_page(request, game_num, slug):
     return render(request, template_path, context)
 
 
-def test(request):
-    return render(request, "test.html")

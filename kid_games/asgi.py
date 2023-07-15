@@ -1,5 +1,5 @@
 """
-ASGI config for kids_gallery project.
+ASGI config for kid_games project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "kids_gallery.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "kid_games.settings")
 
 application = get_asgi_application()

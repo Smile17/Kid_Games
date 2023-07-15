@@ -1,5 +1,5 @@
 """
-WSGI config for kids_gallery project.
+WSGI config for kid_games project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "kids_gallery.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "kid_games.settings")
 
 application = get_wsgi_application()
