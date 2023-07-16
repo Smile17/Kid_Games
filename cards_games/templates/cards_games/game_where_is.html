@@ -21,9 +21,9 @@
       <div class="card-board col-7">
         {% for card in cards %}
             <div id="{{card.slug}}" class="card card-item shadow variant" onclick="playAudio('audio_{{forloop.counter0}}')">
-                    <img class="card-image" src="{{card.image.url}}" alt="{{card.altText}}">
+                <img class="card-image" src="{{card.image.url}}" alt="{{card.altText}}">
                 <audio src="{{ card.audio.url }}" id="audio_{{forloop.counter0}}"></audio>
-             </div>
+            </div>
         {% endfor %}
     </div>
     </div>

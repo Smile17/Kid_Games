@@ -3,13 +3,11 @@
 
 {% block content %}
 <main>
-    <p>{% random_int 100 999 %}</p>
     <section class="py-3 text-center container">
         <div class="row py-lg-3">
             <div class="col-lg-6 col-md-8 mx-auto">
-
                 <h1 class="fw-light">{{category.title}}</h1>
-
+                <audio src="{{ category.audio.url }}" autoplay></audio>
             </div>
         </div>
     </section>
@@ -22,7 +20,8 @@
                 {% for card in cards %}
                 <div class="col">
                     <a href="{% url 'image-category' card.slug %}">
-                    <div class="card shadow">
+                    <div class="card shadow" onmouseover="playAudio('audio_{{card.slug}}')" onclick="playAudio('audio_{{card.slug}}')">
+                        <audio src="{{ card.audio.url }}" id="audio_{{card.slug}}"></audio>
                         <img src="{{card.image.url}}" alt="{{card.altText}}">
                         <div class="overlay">{{card.title}}</div>
                     </div>

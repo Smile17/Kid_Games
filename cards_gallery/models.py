@@ -25,3 +25,5 @@ class CardItem(models.Model):
                                null=True, blank=True)
     child = models.ForeignKey('Card', on_delete=models.DO_NOTHING, related_name='child_card', db_column='child_card',
                               null=True, blank=True)
+
+

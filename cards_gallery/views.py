@@ -5,14 +5,12 @@ from random import sample, choice
 
 def home(request):
     categories = Card.objects.filter(is_category=True)
-    print(categories)
     context = {"categories": categories}
     return render(request, "cards_gallery/index.html", context)
 
 
 def category_page(request, slug):
     category = Card.objects.get(slug=slug)
-    print(category)
     cards = category.cards.all()
 
     context = {"category": category, "cards": cards}

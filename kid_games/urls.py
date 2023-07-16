@@ -25,6 +25,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("cards/", include("cards_gallery.urls")),
     path("game/", include("cards_games.urls")),
+    path("hunt/", include("scavenger_hunt.urls")),
 ]
 
 

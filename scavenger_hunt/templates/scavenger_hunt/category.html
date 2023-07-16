@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load random_numbers %}
+
+{% block content %}
+<main>
+    <section class="py-3 text-center container">
+        <div class="row py-lg-3">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-light">{{category.title}}</h1>
+                <audio src="{{ category.audio.url }}" autoplay></audio>
+            </div>
+        </div>
+    </section>
+
+    <div class="album py-5 bg-light">
+        <div class="container-xl">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
+
+                {% if cards|length > 0 %}
+                {% for card in cards %}
+                <div class="col">
+
+                    <div id="{{card.slug}}" class="card shadow" onmouseover="playAudio('audio_{{card.slug}}')" onclick="playAudio('audio_{{card.slug}}')">
+                        <audio src="{{ card.audio.url }}" id="audio_{{card.slug}}"></audio>
+                        <img src="{{card.image.url}}" alt="{{card.altText}}">
+                        <div class="overlay">{{card.title}}</div>
+                    </div>
+
+                </div>
+                {% endfor %}
+                {% else %}
+                <h2>No image for selected category</h2>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}
+
+{% block script %}
+    <script>
+        function playAudio(audio_id){
+               document.getElementById(audio_id).play();
+        }
+        document.querySelectorAll(".card").forEach(el => el.addEventListener("click", selectCard));
+        function selectCard(event) {
+            var classes = document.getElementById(this.id).classList;
+            if (classes.contains('selected-correct')) {
+                classes.remove('selected-correct');
+            }
+            else {
+                classes.add('selected-correct');
+            }
+
+        }
+    </script>
+{% endblock script %}
+

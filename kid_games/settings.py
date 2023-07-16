@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "cards_gallery",
-    "cards_games"
+    "cards_games",
+    "scavenger_hunt"
 ]
 
 MIDDLEWARE = [
