@@ -5,10 +5,10 @@ class Card(models.Model):
     slug = models.SlugField(max_length=500, unique=True, blank=True, null=True)
     title = models.CharField(max_length=100)
     image = ResizedImageField(
-        size=[2878, 1618],
+        size=[1000, 1000],
         crop=["middle", "center"],
-        default="default_land.jpg",
-        upload_to="category_landscape",
+        default="default_image.jpg",
+        upload_to="image",
     )
     audio = models.FileField(upload_to="audio", default="default_audio.mp3")
     altText = models.TextField(null=True, blank=True)

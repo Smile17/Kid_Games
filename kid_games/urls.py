@@ -23,9 +23,12 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("user/", include("user_auth.urls")),
     path("cards/", include("cards_gallery.urls")),
     path("game/", include("cards_games.urls")),
     path("hunt/", include("scavenger_hunt.urls")),
+
+    path('user/', include('django.contrib.auth.urls')),
 ]
 
 

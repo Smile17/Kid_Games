@@ -19,8 +19,12 @@
                 {% if cards|length > 0 %}
                 {% for card in cards %}
                 <div class="col">
-                    <a href="{% url 'image-category' card.slug %}">
-                    <div class="card shadow" onmouseover="playAudio('audio_{{card.slug}}')" onclick="playAudio('audio_{{card.slug}}')">
+                    {% if card.cards.length > 0 %}
+                        <a href="{% url 'image-category' card.slug %}">
+                    {% else %}
+                        <a>
+                    {% endif %}
+                    <div class="card shadow" onclick="playAudio('audio_{{card.slug}}')">
                         <audio src="{{ card.audio.url }}" id="audio_{{card.slug}}"></audio>
                         <img src="{{card.image.url}}" alt="{{card.altText}}">
                         <div class="overlay">{{card.title}}</div>
@@ -81,20 +85,14 @@
 
                         {% if not forloop.first %}
                         <div class="carousel-item">
-                            <audio src="{{ card.audio.url }}" id="audio_{{forloop.counter0}}"></audio>
-                            <div class="audio-btn" onclick="playAudio('audio_{{forloop.counter0}}')"><i
-                                    class="fa fa-music fa-lg white" aria-hidden="true"></i></div>
-                            <img src="{{card.image.url}}" alt="{{card.altText}}">
-                        </div>
                         {% else %}
                         <div class="carousel-item active">
-                            <audio src="{{ card.audio.url }}" id="audio_{{forloop.counter0}}"></audio>
-                            <div class="audio-btn" onclick="playAudio('audio_{{forloop.counter0}}')"><i
-                                    class="fa fa-music fa-lg white" aria-hidden="true"></i></div>
-                            <img src="{{card.image.url}}" alt="{{card.altText}}">
-                        </div>
                         {% endif %}
-
+                            <audio src="{{ card.audio.url }}" id="audio_{{forloop.counter0}}"></audio>
+                            <div class="carousel-image">
+                                <img onclick="playAudio('audio_{{forloop.counter0}}')" src="{{card.image.url}}" alt="{{card.altText}}">
+                            </div>
+                        </div>
 
                         {% endfor %}
 
