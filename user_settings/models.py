@@ -1,6 +1,23 @@
 from django.db import models
 from django.db.models import Model
+#from multiselectfield import MultiSelectField
+from django.contrib.auth.models import User
+from django.forms.models import model_to_dict
+import json
 
 
-class UserSettingsModel(Model):
-    with_sounds = models.BinaryField()
+class UserSettings(Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    autoplay_sound = models.BooleanField(default=True)
+    number_of_questions = models.IntegerField(default=10)
+    #question_types = models.ManyToManyField('QuestionType')
+    def __str__(self):
+        data = model_to_dict(self)
+        return json.dumps(data)
+
+#class QuestionType(models.Model):
+#    QUESTION_TYPE = (
+#        (1, "Find the card out of 4"),
+#        (2, "Find the sound out of 4")
+#    )
+#    type = MultiSelectField(choices=QUESTION_TYPE)

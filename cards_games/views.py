@@ -14,7 +14,7 @@ def game_page(request, game_num, slug):
         print("AAAAAAAAAAAAAA")
         data = request.POST.get('num_visits')
         print(data)
-    print("BBBBB")
+
     # Choose the game
     game_key, template_path = choice(list(games.items()))
 
@@ -27,4 +27,7 @@ def game_page(request, game_num, slug):
     context = {"game_num": game_num, "slug": slug, "answer": answer, "cards": cards}
     return render(request, template_path, context)
 
-
+def not_enough(request):
+    title = request.GET['title']
+    context = {"title": title}
+    return render(request, "cards_games/not_enough_error.html", context)

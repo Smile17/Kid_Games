@@ -29,6 +29,7 @@ urlpatterns = [
     path("hunt/", include("scavenger_hunt.urls")),
 
     path('user/', include('django.contrib.auth.urls')),
+    path('user_settings/', include('user_settings.urls')),
 ]
 
 

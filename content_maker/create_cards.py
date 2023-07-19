@@ -3,6 +3,7 @@ import shutil
 import codecs
 import numpy as np
 from Kid_Games.cards_gallery.models import Card, CardItem
+#from cards_gallery.models import Card, CardItem
 
 directory = r'C:\Users\kam\PycharmProjects\Python_Django\Content_Maker\results\ukr_alphabet'
 prefix = 'ukr_alpha'

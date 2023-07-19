@@ -5,7 +5,7 @@ class Card(models.Model):
     slug = models.SlugField(max_length=500, unique=True, blank=True, null=True)
     title = models.CharField(max_length=100)
     image = ResizedImageField(
-        size=[1000, 1000],
+        size=[1400, 1000],
         crop=["middle", "center"],
         default="default_image.jpg",
         upload_to="image",
