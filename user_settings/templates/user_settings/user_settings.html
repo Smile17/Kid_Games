@@ -10,7 +10,7 @@
             </div>
         </div>
     </section>
-<div class="bg-light pt-5">
+<div class="bg-light p-5">
     <div class="container p-0">
         <div class="row">
             <div class="col-md-5 col-xl-4">
@@ -123,10 +123,11 @@
                             <div class="card-body">
                                 <h5 class="card-title">Application</h5>
 
-                                <form>
+                                <form id="app_form" onsubmit="saveSettings(event)" method="post">
                                     {% csrf_token %}
                                     {{ app_form|crispy}}
-                                    <button type="submit" class="btn btn-dark">Save changes</button>
+                                    <button type="submit" class="btn btn-dark confetti-button">Save changes</button>
+                                    <div class="snackbar" id="snackbar">Settings updated</div>
                                 </form>
 
                             </div>
@@ -135,11 +136,55 @@
                 </div>
             </div>
         </div>
-
+        <div class="button-wrapper">
+        </div>
     </div>
     </div>
 </main>
 {% endblock content %}
+
+{% block script %}
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script>
+function congratulate() {
+      let canvas = document.createElement("canvas");
+      let container = document.getElementsByClassName("button-wrapper")[0];
+      canvas.width = 600;
+      canvas.height = 600;
+
+      container.appendChild(canvas);
+
+      let confetti_button = confetti.create(canvas);
+      confetti_button().then(() => container.removeChild(canvas));
+}
+function saveSettings(e) {
+    e.preventDefault();
+    var formData = {
+      csrfmiddlewaretoken: '{{ csrf_token }}',
+      autoplay_sound: $("#id_autoplay_sound").is(':checked'),
+      number_of_questions: $("#id_number_of_questions").val(),
+    };
+    var POST_URL = "{% url 'application_settings' %}";
+    $.ajax({
+        url: POST_URL,
+        type: "POST",
+        data:   formData,
+        success: function (data) {
+          var x = document.getElementById("snackbar");
+          x.classList.add("show");
+          setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+          congratulate();
+        }
+    }); // end ajax
+    return false;
+};
+
+document.getElementsByClassName("confetti-button")[0].addEventListener("click", () => {
+
+});
+
+</script>
+{% endblock script %}
 
 <!---
 Inspiration: https://www.bootdey.com/snippets/view/bs4-Profile-Settings-page

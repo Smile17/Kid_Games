@@ -3,6 +3,8 @@ from .models import *
 from random import sample, choice
 from cards_gallery.models import Card
 
+from user_settings.utils import get_user_settings
+
 games = {
     0: "cards_games/game_where_is.html",
     1: "cards_games/game_where_is_sound.html",
@@ -10,10 +12,10 @@ games = {
 
 
 def game_page(request, game_num, slug):
-    if request.method == "POST":
-        print("AAAAAAAAAAAAAA")
-        data = request.POST.get('num_visits')
-        print(data)
+    settings = {
+        "num_question": request.GET.get('num_question', 10)
+    }
+    num = int(request.GET.get('num', 1))
 
     # Choose the game
     game_key, template_path = choice(list(games.items()))
@@ -24,7 +26,7 @@ def game_page(request, game_num, slug):
     cards = category.cards.filter(slug__in=random_pk)
     answer = choice(cards)  # It seems without choice it takes first images in DB more often
 
-    context = {"game_num": game_num, "slug": slug, "answer": answer, "cards": cards}
+    context = {"game_num": game_num, "slug": slug, "answer": answer, "cards": cards, "settings": settings, "next_num": num + 1}
     return render(request, template_path, context)
 
 def not_enough(request):

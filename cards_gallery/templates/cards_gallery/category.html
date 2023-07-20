@@ -44,7 +44,7 @@
 <!-- Sticky buttons -->
 <div class="sticky-button fixed-bottom container d-flex justify-content-end">
     {% if cards|length >= 4 %}
-        <a role="button" href="{% url 'image-game' random_num category.slug %}">
+        <a role="button" href="{% url 'image-game' random_num category.slug %}?num_question={{settings.num_question}}&num=1">
             <button class="btn btn-dark btn-circle btn-circle-lg m-1"><i class="fa fa-gamepad" aria-hidden="true"></i></button>
         </a>
     {% else %}

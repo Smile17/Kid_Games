@@ -9,7 +9,7 @@ import json
 class UserSettings(Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     autoplay_sound = models.BooleanField(default=True)
-    number_of_questions = models.IntegerField(default=10)
+    number_of_questions = models.PositiveIntegerField(default=10)
     #question_types = models.ManyToManyField('QuestionType')
     def __str__(self):
         data = model_to_dict(self)
