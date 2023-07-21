@@ -1,12 +1,13 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
 <main>
-    {% include "cards_gallery/filter_navbar_component.html" %}
+    {% include "cards_gallery/filter_component.html" %}
     <div class="album py-5 bg-light" id="cards_container">
         <div class="container">
 
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="cards_container_inside">
 
                 {% if categories|length > 0 %}
                 {% for category in categories %}
@@ -39,4 +40,5 @@
         }
 
     </script>
+    <script src="{% static 'js/filter_component.js' %}"></script>
 {% endblock script %}
