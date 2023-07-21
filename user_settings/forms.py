@@ -5,7 +5,7 @@ from django.forms import ModelForm
 # Sign Up Form
 class ApplicationSettingForm(ModelForm):
     class Meta:
-        model = UserSettings
+        model = UserSetting
         fields = [
             'autoplay_sound',
             'number_of_questions'

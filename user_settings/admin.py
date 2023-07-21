@@ -9,4 +9,4 @@ def register_model_admin(model):
     admin.site.register(model, ModelAdmin)
 
 
-register_model_admin(UserSettings)
+register_model_admin(UserSetting)

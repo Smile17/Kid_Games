@@ -11,3 +11,4 @@ def register_model_admin(model):
 
 register_model_admin(Card)
 register_model_admin(CardItem)
+register_model_admin(CardTag)

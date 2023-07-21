@@ -6,7 +6,7 @@ from django.forms.models import model_to_dict
 import json
 
 
-class UserSettings(Model):
+class UserSetting(Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     autoplay_sound = models.BooleanField(default=True)
     number_of_questions = models.PositiveIntegerField(default=10)

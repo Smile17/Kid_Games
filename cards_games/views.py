@@ -1,9 +1,8 @@
 from django.shortcuts import render
 from .models import *
 from random import sample, choice
-from cards_gallery.models import Card
-
 from user_settings.utils import get_user_settings
+from cards_gallery.models import Card
 
 games = {
     0: "cards_games/game_where_is.html",

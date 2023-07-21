@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django_resized import ResizedImageField
 
@@ -25,5 +26,10 @@ class CardItem(models.Model):
                                null=True, blank=True)
     child = models.ForeignKey('Card', on_delete=models.DO_NOTHING, related_name='child_card', db_column='child_card',
                               null=True, blank=True)
+
+class CardTag(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    card = models.ForeignKey('Card', on_delete=models.CASCADE)
+    tag = models.CharField(max_length=20)
 
 

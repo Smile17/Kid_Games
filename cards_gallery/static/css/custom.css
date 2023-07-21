@@ -106,6 +106,15 @@
  .sticky-button {
      padding: 30px;
 }
+.sticky-button-top {
+     padding-top: 10rem;
+}
+.rounded-right {
+    border-top-right-radius: 0.25rem!important;
+    border-bottom-right-radius: 0.25rem!important;
+    border-top-left-radius: 0rem!important;
+    border-bottom-left-radius: 0rem!important;
+}
 /* Modal */
  .modal-full {
      min-width: 90%;
@@ -240,6 +249,4 @@ a.disabled {
   from {bottom: 30px; opacity: 1;}
   to {bottom: 0; opacity: 0;}
 }
-
-/* Congratulation animation */
 

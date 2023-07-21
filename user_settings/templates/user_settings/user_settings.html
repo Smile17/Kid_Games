@@ -21,7 +21,7 @@
                     </div>
 
                     <div class="list-group list-group-flush" role="tablist">
-                        <a class="list-group-item list-group-item-action active" data-toggle="list" href="#account" role="tab">
+                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#account" role="tab">
                           <i class="fa fa-home text-center mr-1"></i>
                             Account
                         </a>
@@ -29,7 +29,7 @@
                           <i class="fa fa-key text-center mr-1"></i>
                           Password
                         </a>
-                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#application" role="tab">
+                        <a class="list-group-item list-group-item-action active" data-toggle="list" href="#application" role="tab">
                           <i class="fa fa-tv text-center mr-1"></i>
 							Application
                         </a>
@@ -39,7 +39,7 @@
 
             <div class="col-md-7 col-xl-8">
                 <div class="tab-content">
-                    <div class="tab-pane fade show active" id="account" role="tabpanel">
+                    <div class="tab-pane fade" id="account" role="tabpanel">
 
                         <div class="card">
                             <div class="card-header">
@@ -118,7 +118,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="application" role="tabpanel">
+                    <div class="tab-pane fade show active" id="application" role="tabpanel">
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Application</h5>
@@ -130,6 +130,16 @@
                                     <div class="snackbar" id="snackbar">Settings updated</div>
                                 </form>
 
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Modes</h5>
+                                <a href="{% url 'home' %}">
+                                    <button type="button" class="btn btn-dark">Edit mode</button>
+                                </a>
+                                <small id="hint_btn_edit_mode" class="form-text text-muted">
+                                    In edit mode you can set cards visibility and create own sets</small>
                             </div>
                         </div>
                     </div>

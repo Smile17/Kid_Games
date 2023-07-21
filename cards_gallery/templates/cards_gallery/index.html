@@ -2,7 +2,8 @@
 
 {% block content %}
 <main>
-    <div class="album py-5 bg-light">
+    {% include "cards_gallery/filter_navbar_component.html" %}
+    <div class="album py-5 bg-light" id="cards_container">
         <div class="container">
 
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
@@ -10,7 +11,7 @@
                 {% if categories|length > 0 %}
                 {% for category in categories %}
                 <div class="col">
-                    <a href="{% url 'image-category' category.slug %}">
+                    <a class="card-link" href="{% url 'image-category' category.slug %}">
                         <div class="card shadow-sm">
                             <img src="{{category.image.url}}" alt="{{category.altText}}">
                             <div class="overlay">{{category.title}}</div>
@@ -28,3 +29,14 @@
     </div>
 </main>
 {% endblock content %}
+
+{% block script %}
+    <script>
+        var loc = window.location;
+        let links = document.getElementById("cards_container").querySelectorAll(".card-link")
+        for (let el of links) {
+            el.href = el.href + loc.search;
+        }
+
+    </script>
+{% endblock script %}

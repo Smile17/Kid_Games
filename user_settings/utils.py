@@ -1,10 +1,10 @@
-from .models import UserSettings
+from .models import UserSetting
 def  get_user_settings(request):
     # Default settings for unauthorized users
     num_question = 10
 
     if request.user.is_authenticated:
-        settings = UserSettings.objects.get(user=request.user)
+        settings = UserSetting.objects.get(user=request.user)
         num_question = settings.number_of_questions
     settings = {
         "num_question": num_question

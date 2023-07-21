@@ -12,7 +12,7 @@
         </div>
     </section>
 
-    <div class="album py-5 bg-light">
+    <div class="album py-5 bg-light" id="cards_container">
         <div class="container-xl">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
 
@@ -20,7 +20,7 @@
                 {% for card in cards %}
                 <div class="col">
                     {% if card.cards.length > 0 %}
-                        <a href="{% url 'image-category' card.slug %}">
+                        <a class="card-link" href="{% url 'image-category' card.slug %}">
                     {% else %}
                         <a>
                     {% endif %}
@@ -125,6 +125,12 @@
 
 {% block script %}
     <script>
+        var loc = window.location;
+        let links = document.getElementById("cards_container").querySelectorAll(".card-link")
+        for (let el of links) {
+            el.href = el.href + loc.search;
+        }
+
         function playAudio(audio_id){
                document.getElementById(audio_id).play();
         }
