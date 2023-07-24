@@ -259,3 +259,8 @@ a.disabled {
 .top-filter:focus {
     border: none;
 }
+
+.choices__inner {
+    min-height: auto;
+    padding: 0;
+}

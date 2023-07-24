@@ -4,14 +4,20 @@
 </button>
 </div>
 <div id="filter-navbar" class="collapse">
-<input class="form-control top-filter rounded-0" id="text_filter" type="text" placeholder="Search..">
+        <input class="form-control top-filter rounded-0" id="text_filter" type="text" placeholder="Search..">
+        <div class="row d-flex justify-content-center mt-100">
+            <div class="col-md-6 inline">
+                <label>Filter by tags</label>
+                <select id="choices-multiple-remove-button" placeholder="Select upto 5 tags" multiple>
+                    <option value="HTML">HTML</option>
+                    <option value="Jquery">Jquery</option>
+                    <option value="CSS">CSS</option>
+                    <option value="Bootstrap 3">Bootstrap 3</option>
+                    <option value="Bootstrap 4">Bootstrap 4</option>
+                    <option value="Java">Java</option>
+                    <option value="Javascript">Javascript</option>
+                </select>
+            </div>
+        </div>
 
-<select class="select" multiple>
-  <option value="1">One</option>
-  <option value="2">Two</option>
-  <option value="3">Three</option>
-  <option value="4">Four</option>
-  <option value="5">Five</option>
-</select>
-<label class="form-label select-label">Example label</label>
 </div>

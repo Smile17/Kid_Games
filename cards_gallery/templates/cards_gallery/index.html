@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block custom_style %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
+{% endblock custom_style %}
+
 {% block content %}
 <main>
     {% include "cards_gallery/filter_component.html" %}
@@ -32,13 +36,23 @@
 {% endblock content %}
 
 {% block script %}
+    <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
     <script>
         var loc = window.location;
         let links = document.getElementById("cards_container").querySelectorAll(".card-link")
         for (let el of links) {
             el.href = el.href + loc.search;
         }
+        $(document).ready(function(){
+             var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+                removeItemButton: true,
+                maxItemCount:5,
+                searchResultLimit:5,
+                renderChoiceLimit:5
+              });
 
+
+         });
     </script>
     <script src="{% static 'js/filter_component.js' %}"></script>
 {% endblock script %}

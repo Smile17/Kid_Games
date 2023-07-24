@@ -28,7 +28,7 @@ def scale_image(img, factor=1):
 
 
 directory = "input/alphabet"
-dims = (1000, 1000)
+dims = (1400, 1000)
 for filename in os.listdir(directory):
     f = os.path.join(directory, filename)
     # checking if it is a file
