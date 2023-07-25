@@ -3,21 +3,42 @@
     <i class="fa fa-filter" aria-hidden="true"></i>
 </button>
 </div>
-<div id="filter-navbar" class="collapse">
-        <input class="form-control top-filter rounded-0" id="text_filter" type="text" placeholder="Search..">
-        <div class="row d-flex justify-content-center mt-100">
-            <div class="col-md-6 inline">
-                <label>Filter by tags</label>
-                <select id="choices-multiple-remove-button" placeholder="Select upto 5 tags" multiple>
-                    <option value="HTML">HTML</option>
-                    <option value="Jquery">Jquery</option>
-                    <option value="CSS">CSS</option>
-                    <option value="Bootstrap 3">Bootstrap 3</option>
-                    <option value="Bootstrap 4">Bootstrap 4</option>
-                    <option value="Java">Java</option>
-                    <option value="Javascript">Javascript</option>
-                </select>
+<div id="filter-navbar" class="collapse container">
+
+        <form class="input-group m-3" id="filter_form">
+          <input type="text" class="form-control" id="text_filter" placeholder="Filter by title">
+
+            {% if tags|length > 0 %}
+                <div class="col p-0">
+                    <select class="form-control" id="tags-filter" placeholder="Filter by tags" multiple>
+                        {% for tag in tags %}
+                            <option value={{tag}}>#{{tag}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+            {% endif %}
+
+            {% if ptags|length > 0 %}
+                <div class="col p-0">
+                    <select class="form-control" id="ptags-filter" placeholder="Filter by personal tags" multiple>
+                        {% for tag in ptags %}
+                            <option value={{tag}}>#{{tag}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+            {% endif %}
+
+            <div class="input-group-append">
+                <button type="button" class="btn btn-dark" onclick="filterByTags()"><i class="fa fa-search"></i></button>
+                <button type="button" class="btn btn-dark" onclick="clearFilters()">Clear</button>
             </div>
-        </div>
+
+
+        </form>
+
+
+
 
 </div>

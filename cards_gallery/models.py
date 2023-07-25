@@ -2,6 +2,8 @@ from django.contrib.auth.models import User
 from django.db import models
 from django_resized import ResizedImageField
 
+
+
 class Card(models.Model):
     slug = models.SlugField(max_length=500, unique=True, blank=True, null=True)
     title = models.CharField(max_length=100)
@@ -14,6 +16,7 @@ class Card(models.Model):
     audio = models.FileField(upload_to="audio", default="default_audio.mp3")
     altText = models.TextField(null=True, blank=True)
     cards = models.ManyToManyField('Card', through='CardItem', null=True, blank=True)
+    #tags = models.ManyToManyField('CardTag', null=True, blank=True)
     is_category = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -29,7 +32,11 @@ class CardItem(models.Model):
 
 class CardTag(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-    card = models.ForeignKey('Card', on_delete=models.CASCADE)
+    card_fk = models.ForeignKey('Card', on_delete=models.CASCADE, related_name='card_fk', db_column='card_fk',
+                                null=True, blank=True)
     tag = models.CharField(max_length=20)
+
+
+
 
 

@@ -7,7 +7,7 @@
 
 {% block content %}
 <main>
-    {% include "cards_gallery/filter_component.html" %}
+    {% include "cards_gallery/filter_component.html" with tags=tags %}
     <div class="album py-5 bg-light" id="cards_container">
         <div class="container">
 
@@ -20,8 +20,17 @@
                         <div class="card shadow-sm">
                             <img src="{{category.image.url}}" alt="{{category.altText}}">
                             <div class="overlay">{{category.title}}</div>
+
                         </div>
+
                     </a>
+                    <div class="card shadow-sm">
+                    <div class="card-body">
+                      <p class="card-text">Some</p>
+                      <small class="text-muted">Some etxt</small>
+                    </div>
+
+                    </div>
 
                 </div>
                 {% endfor %}
@@ -37,22 +46,13 @@
 
 {% block script %}
     <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
+    <script src="{% static 'js/filter_component.js' %}"></script>
     <script>
         var loc = window.location;
         let links = document.getElementById("cards_container").querySelectorAll(".card-link")
         for (let el of links) {
             el.href = el.href + loc.search;
         }
-        $(document).ready(function(){
-             var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
-                removeItemButton: true,
-                maxItemCount:5,
-                searchResultLimit:5,
-                renderChoiceLimit:5
-              });
-
-
-         });
     </script>
-    <script src="{% static 'js/filter_component.js' %}"></script>
+
 {% endblock script %}
