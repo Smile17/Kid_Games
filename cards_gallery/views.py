@@ -1,5 +1,5 @@
 from django.db.models import Exists, OuterRef
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import *
 from random import sample, choice
 from user_settings.utils import get_user_settings
@@ -20,19 +20,13 @@ def filter_cards(request, cards_obj, is_category):
         tags = request.GET.get('ptag', None)
         if not (tags is None or len(tags) == 0):
             tags = tags.split(',')  # get categories with at least one of the selected tags
-            cards = cards_obj.filter(
-                Exists(CardTag.objects.filter(user=request.user, tag__in=tags, card_fk=OuterRef('pk'))),
-                is_category=is_category
-            )
+            cards = cards_obj.filter(is_category=is_category, tags__tag__in=tags, tags__user=request.user)
             is_filtered = True
     if not (is_filtered):  # filter on global filtering
         tags = request.GET.get('tag', None)
         if not (tags is None or len(tags) == 0):
             tags = tags.split(',')  # get categories with at least one of the selected tags
-            cards = cards_obj.filter(
-                Exists(CardTag.objects.filter(user__isnull=True, tag__in=tags, card_fk=OuterRef('pk'))),
-                is_category=True
-            )
+            cards = cards_obj.filter(is_category=is_category, tags__tag__in=tags, tags__user__isnull=True)
         else:
             cards = cards_obj.filter(is_category=is_category)
     return cards
@@ -45,6 +39,15 @@ def category_page(request, slug):
     context = {"category": category, "cards": cards, "settings": settings}
     return render(request, "cards_gallery/category.html", context)
 
+
+def save_tags(request):
+    if request.method == 'POST':
+        slug = request.POST["slug"]
+        tags = request.POST["tags"].split(';')
+        print(slug)
+        print(tags)
+        print("TAGS UPDATED")
+    return redirect(home)
 
 
 def test(request):

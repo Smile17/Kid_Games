@@ -3,6 +3,12 @@ from django.db import models
 from django_resized import ResizedImageField
 
 
+class CardTag(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    tag = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.tag + " " + str(self.user)
 
 class Card(models.Model):
     slug = models.SlugField(max_length=500, unique=True, blank=True, null=True)
@@ -16,12 +22,14 @@ class Card(models.Model):
     audio = models.FileField(upload_to="audio", default="default_audio.mp3")
     altText = models.TextField(null=True, blank=True)
     cards = models.ManyToManyField('Card', through='CardItem', null=True, blank=True)
-    #tags = models.ManyToManyField('CardTag', null=True, blank=True)
+    tags = models.ManyToManyField(CardTag, related_name='tags')
     is_category = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title
+
+
 
 
 class CardItem(models.Model):
@@ -30,11 +38,8 @@ class CardItem(models.Model):
     child = models.ForeignKey('Card', on_delete=models.DO_NOTHING, related_name='child_card', db_column='child_card',
                               null=True, blank=True)
 
-class CardTag(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-    card_fk = models.ForeignKey('Card', on_delete=models.CASCADE, related_name='card_fk', db_column='card_fk',
-                                null=True, blank=True)
-    tag = models.CharField(max_length=20)
+
+
 
 
 

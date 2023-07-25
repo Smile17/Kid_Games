@@ -7,6 +7,15 @@ $(document).ready(function(){
   });
 });
 
+$("#showTags").change(function() {
+    if(this.checked) {
+        $(".tags").show();
+    }
+    else {
+        $(".tags").hide();
+    }
+});
+
 $(document).ready(function(){
  var multipleCancelButtonTags = new Choices('#tags-filter', {
     removeItemButton: true,

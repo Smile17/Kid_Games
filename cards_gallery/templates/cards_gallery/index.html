@@ -14,22 +14,42 @@
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="cards_container_inside">
 
                 {% if categories|length > 0 %}
-                {% for category in categories %}
+                {% for card in categories %}
                 <div class="col">
-                    <a class="card-link" href="{% url 'image-category' category.slug %}">
+                    <a class="card-link" href="{% url 'image-category' card.slug %}">
                         <div class="card shadow-sm">
-                            <img src="{{category.image.url}}" alt="{{category.altText}}">
-                            <div class="overlay">{{category.title}}</div>
+                            <img src="{{card.image.url}}" alt="{{card.altText}}">
+                            <div class="overlay">{{card.title}}</div>
 
                         </div>
 
                     </a>
-                    <div class="card shadow-sm">
-                    <div class="card-body">
-                      <p class="card-text">Some</p>
-                      <small class="text-muted">Some etxt</small>
+                    <div class="card shadow-sm tags" style="display: none;">
+                    <div class="card-body" >
+                        {% for tag in card.tags.all %}
+                            {% if not tag.user %}
+                                <small class="card-text text-muted">#{{tag.tag}}</small>
+                            {% endif %}
+                        {% endfor %}
+                        {% if user.is_authenticated %}
+                            {% for tag in card.tags.all %}
+                                {% if tag.user == user %}
+                                    <small class="card-text text-muted">#{{tag.tag}}</small>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
                     </div>
 
+                        <div class="d-flex ml-3 mb-3">
+                            <form class="input-group w-auto" onsubmit="saveTags('{{card.slug}}', this, event)">
+                                {% csrf_token %}
+                                <input type="text" class="form-control new-tags" placeholder="New tags">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-dark confetti-button">Save</button>
+                                </div>
+                                <div class="snackbar" id="snackbar">Tags updated</div>
+                            </form>
+                        </div>
                     </div>
 
                 </div>
@@ -46,13 +66,40 @@
 
 {% block script %}
     <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
-    <script src="{% static 'js/filter_component.js' %}"></script>
+    <script src="{% static 'js/filter_component.js' %}/"></script>
     <script>
         var loc = window.location;
         let links = document.getElementById("cards_container").querySelectorAll(".card-link")
         for (let el of links) {
             el.href = el.href + loc.search;
         }
+
+    function saveTags(slug, form, e) {
+        e.preventDefault();
+        let tags = form.getElementsByClassName("new-tags")[0].value
+        if (tags != '') {
+            var formData = {
+              csrfmiddlewaretoken: '{{ csrf_token }}',
+              slug: slug,
+              tags: tags,
+            };
+            var POST_URL = "{% url 'save_tags' %}";
+            alert(POST_URL);
+            $.ajax({
+                url: POST_URL,
+                type: "POST",
+                data:   formData,
+                success: function (data) {
+                  var x = document.getElementById("snackbar");
+                  x.classList.add("show");
+                  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+                  congratulate();
+                }
+            }); // end ajax
+            return false;
+        }
+        return false;
+    };
     </script>
 
 {% endblock script %}
