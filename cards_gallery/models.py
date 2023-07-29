@@ -7,6 +7,9 @@ class CardTag(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     tag = models.CharField(max_length=20)
 
+    class Meta:
+        unique_together = ('user', 'tag',)
+
     def __str__(self):
         return self.tag + " " + str(self.user)
 

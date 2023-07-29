@@ -1,8 +1,8 @@
-from django.db.models import Exists, OuterRef
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .models import *
-from random import sample, choice
 from user_settings.utils import get_user_settings
+from django.contrib.auth.decorators import login_required
 
 
 def home(request):
@@ -40,15 +40,45 @@ def category_page(request, slug):
     return render(request, "cards_gallery/category.html", context)
 
 
-def save_tags(request):
-    if request.method == 'POST':
+#@login_required
+def crud_tags(request):
+    if request.method == 'POST' and 'HTTP_X_METHOD_OVERRIDE' in request.META:
+        http_method = request.META['HTTP_X_METHOD_OVERRIDE']
+        if http_method.lower() == 'delete':
+            slug = request.POST["slug"]
+            tag = request.POST["tag"]
+            is_populate = request.POST["is_populate"]
+            card = Card.objects.get(slug=slug)
+            delete_tags(request, card, tag)
+            if is_populate:
+                cards = card.cards.all()
+                for card in cards:
+                    delete_tags(request, card, tag)
+            print("TAGS DELETED")
+    elif request.method == 'POST':
         slug = request.POST["slug"]
         tags = request.POST["tags"].split(';')
-        print(slug)
-        print(tags)
-        print("TAGS UPDATED")
+        is_populate = request.POST["is_populate"]
+        card = Card.objects.get(slug=slug)
+        save_tags(request, card, tags)
+        if is_populate:
+            cards = card.cards.all()
+            for card in cards:
+                save_tags(request, card, tags)
+        print("TAGS ADDED")
+
     return redirect(home)
 
+def delete_tags(request, card, tag):
+    tag_obj = card.tags.filter(tag=tag, user=request.user)
+    tag_obj.delete()
+    card.save()
+def save_tags(request, card, tags):
+    for tag in tags:
+        tag_obj = CardTag(tag=tag, user=request.user)
+        tag_obj.save()
+        card.tags.add(tag_obj)
+    card.save()
 
 def test(request):
     return render(request, "test.html")
