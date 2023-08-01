@@ -9,13 +9,13 @@
     <div class="row">
       <div class="card-board justify-content-end col-3">
           <div class="card card-item shadow center">
-                <img class="card-image" src="{{answer.image.url}}" alt="{{answer.altText}}">
+                <img class="card-image" src="{{answer.image.url}}"">
          </div>
       </div>
         <div class="card-board col-7">
             {% for card in cards %}
                 <div id="{{card.slug}}" class="card card-item shadow variant" onclick="playAudio('audio_{{forloop.counter0}}')">
-                    <img class="card-image" src="/uploads/assets/notes.png" alt="{{card.altText}}">
+                    <img class="card-image" src="/uploads/assets/notes.png">
                     <audio src="{{ card.audio.url }}" id="audio_{{forloop.counter0}}"></audio>
                 </div>
             {% endfor %}

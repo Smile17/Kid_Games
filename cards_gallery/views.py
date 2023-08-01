@@ -4,8 +4,21 @@ from .models import *
 from user_settings.utils import get_user_settings
 from django.contrib.auth.decorators import login_required
 
-
 def home(request):
+    categories = filter_cards(request, Card.objects, True)
+    context = {"categories": categories}
+    return render(request, "cards_gallery/index_game.html", context)
+
+
+def category_page(request, slug):
+    settings = get_user_settings(request)
+    category = Card.objects.get(slug=slug)
+    cards = filter_cards(request, category.cards, False)
+    context = {"category": category, "cards": cards, "settings": settings}
+    return render(request, "cards_gallery/category_game.html", context)
+
+
+def home_with_tags(request):
     categories = filter_cards(request, Card.objects, True)
     tags = CardTag.objects.filter(user__isnull=True).values_list('tag', flat=True).distinct()
     ptags = []
@@ -32,11 +45,15 @@ def filter_cards(request, cards_obj, is_category):
     return cards
 
 
-def category_page(request, slug):
+def category_page_with_tags(request, slug):
     settings = get_user_settings(request)
     category = Card.objects.get(slug=slug)
     cards = filter_cards(request, category.cards, False)
-    context = {"category": category, "cards": cards, "settings": settings}
+    tags = CardTag.objects.filter(user__isnull=True).values_list('tag', flat=True).distinct()
+    ptags = []
+    if request.user.is_authenticated:
+        ptags = CardTag.objects.filter(user=request.user).values_list('tag', flat=True).distinct()
+    context = {"category": category, "cards": cards, "settings": settings, "tags": tags, "ptags": ptags}
     return render(request, "cards_gallery/category.html", context)
 
 
@@ -67,7 +84,7 @@ def crud_tags(request):
                 save_tags(request, card, tags)
         print("TAGS ADDED")
 
-    return redirect(home)
+    return redirect(home_with_tags)
 
 def delete_tags(request, card, tag):
     tag_obj = card.tags.filter(tag=tag, user=request.user)
@@ -80,5 +97,3 @@ def save_tags(request, card, tags):
         card.tags.add(tag_obj)
     card.save()
 
-def test(request):
-    return render(request, "test.html")

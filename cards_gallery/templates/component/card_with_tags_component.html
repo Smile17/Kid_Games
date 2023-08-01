@@ -1,0 +1,46 @@
+<a class="card-link" href="{% url 'image_category_with_tags' card.slug %}">
+    <div class="card shadow-sm">
+        <img src="{{card.image.url}}">
+        <div class="overlay">{{card.title}}</div>
+    </div>
+</a>
+
+<div id="tags_{{card.slug}}" class="card shadow-sm tags" style="display: none;">
+    <div class="card-body choices__list choices__list--multiple ml-3" >
+        {% for tag in card.tags.all %}
+            {% if not tag.user %}
+                    <small class="choices__item choices__item--selectable">
+                      #{{tag.tag}}
+                    </small>
+            {% endif %}
+        {% endfor %}
+        {% if user.is_authenticated %}
+            {% for tag in card.tags.all %}
+                {% if tag.user == user %}
+                    <small class="choices__item choices__item--selectable">
+                      #{{tag.tag}}
+                        <button type="button" class="choices__button custom-btn-tag"
+                                onclick="deleteTags('{{card.slug}}', '{{tag.tag}}', this, event)">
+                            Remove item
+                        </button>
+                    </small>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="d-flex ml-3 mb-3">
+        <form class="w-auto" onsubmit="saveTags('{{card.slug}}', this, event)">
+            <div class="input-group">
+                <input type="text" class="form-control new-tags" placeholder="New tags" required>
+                    {% csrf_token %}
+                <div class="input-group-append btn-group">
+                    <button type="submit" class="btn btn-dark confetti-button">Save</button>
+                </div>
+            </div>
+            <div class="input-group form-check mt-3">
+                  <input class="form-check-input populate-checkbox" type="checkbox" id="populateCheck_{{card.slug}}" name="populateCheck" checked>
+                  <label class="form-check-label">Populate to subcards</label>
+            </div>
+        </form>
+    </div>
+</div>

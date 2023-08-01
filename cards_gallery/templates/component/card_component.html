@@ -1,0 +1,6 @@
+<a class="card-link" href="{% url 'image_category' card.slug %}">
+    <div class="card shadow-sm">
+        <img src="{{card.image.url}}">
+        <div class="overlay">{{card.title}}</div>
+    </div>
+</a>

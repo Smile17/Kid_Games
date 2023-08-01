@@ -1,20 +1,16 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block custom_style %}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
-{% endblock custom_style %}
 
 {% block content %}
 <main>
-    {% include "component/filter_component.html" with tags=tags %}
     <div class="album py-5 bg-light" id="cards_container">
         <div class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="cards_container_inside">
                 {% if categories|length > 0 %}
                 {% for card in categories %}
                     <div id="cards_board" class="col">
-                        {% include "component/card_with_tags_component.html" with card=card %}
+                        {% include "component/card_component.html" with card=card %}
                     </div>
                 {% endfor %}
 
@@ -28,8 +24,6 @@
 {% endblock content %}
 
 {% block script %}
-    <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
-    <script src="{% static 'js/filter_component.js' %}"></script>
     <script>
         var loc = window.location;
         let links = document.getElementById("cards_container").querySelectorAll(".card-link")

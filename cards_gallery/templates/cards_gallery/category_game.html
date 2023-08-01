@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+{% load random_numbers %}
+{% load static %}
+
+{% block content %}
+<main>
+    <section class="py-3 text-center container">
+        <div class="row py-lg-3">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-light">{{category.title}}</h1>
+                <audio src="{{ category.audio.url }}" autoplay></audio>
+            </div>
+        </div>
+    </section>
+
+    <div class="album py-5 bg-light" id="cards_container">
+        <div class="container-xl">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
+
+                {% if cards|length > 0 %}
+                {% for card in cards %}
+                <div class="col">
+                    {% include "component/card_component.html" with card=card %}
+                </div>
+                {% endfor %}
+                {% else %}
+                <h2>No image for selected category</h2>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</main>
+{% random_int 100 999 as random_num %}
+<!-- Sticky buttons -->
+<div class="sticky-button fixed-bottom container d-flex justify-content-end">
+    {% if cards|length >= 4 %}
+        <a role="button" href="{% url 'image_game' random_num category.slug %}?num_question={{settings.num_question}}&num=1">
+            <button class="btn btn-dark btn-circle btn-circle-lg m-1"><i class="fa fa-gamepad" aria-hidden="true"></i></button>
+        </a>
+    {% else %}
+        <a role="button" href="{% url 'image_not_enough' %}?title={{category.title}}">
+            <button class="btn btn-dark btn-circle btn-circle-lg m-1"><i class="fa fa-gamepad" aria-hidden="true"></i></button>
+        </a>
+    {% endif %}
+    {% if cards|length > 0 %}
+        <a href="#fullscreenModal" role="button" data-toggle="modal">
+            <button class="btn btn-dark btn-circle btn-circle-lg m-1"><i class="fa fa-arrows-alt fa-lg"></i></button>
+        </a>
+    {% endif %}
+</div>
+
+<!-- Modal for all images slider -->
+<div class="modal fade" id="fullscreenModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-full" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{category.title}}</h5>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body p-4" id="result">
+
+                <div id="cards_carousel" class="carousel slide container" data-ride="carousel">
+
+                    <!-- Indicators
+                    <ul class="carousel-indicators">
+
+                        {% for i in cards %}
+
+                          {% if forloop.counter0 == 0 %}
+                              <li data-target="#cards_carousel" data-slide-to="{{ forloop.counter0 }}" class="active"></li>
+                          {% else %}
+                              <li data-target="#cards_carousel" data-slide-to="{{ forloop.counter0 }}"></li>
+                          {% endif %}
+
+                        {% endfor %}
+
+                    </ul>
+                      -->
+                    <!-- The slideshow -->
+                    <div class="carousel-inner">
+
+                        {% for card in cards %}
+
+                        {% if not forloop.first %}
+                        <div class="carousel-item">
+                        {% else %}
+                        <div class="carousel-item active">
+                        {% endif %}
+                            <audio src="{{ card.audio.url }}" id="audio_{{forloop.counter0}}"></audio>
+                            <div class="carousel-image">
+                                <img onclick="playAudio('audio_{{forloop.counter0}}')" src="{{card.image.url}}">
+                            </div>
+                        </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                    <!-- Left and right controls -->
+                    <a class="carousel-control-prev" href="#cards_carousel" data-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </a>
+                    <a class="carousel-control-next" href="#cards_carousel" data-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </a>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block script %}
+    <script>
+        var loc = window.location;
+        let links = document.getElementById("cards_container").querySelectorAll(".card-link")
+        for (let el of links) {
+            el.href = el.href + loc.search;
+        }
+
+        function playAudio(audio_id){
+               document.getElementById(audio_id).play();
+        }
+
+        let allSlides = $("#cards_carousel").find('.carousel-item');
+
+        allSlides.each(function(index, el) {
+          if (index !== 0) {
+            $(this).find('audio')[0].pause();
+          }
+        });
+        function playSlide(ev) {
+          let slides = $(this).find('.carousel-item');
+          let pvid = slides[ev.from].querySelectorAll('audio')[0];
+          let vid = slides[ev.to].querySelectorAll('audio')[0];
+          console.log(vid);
+          let isPlaying = vid.currentTime > 0 && vid.readyState > 2;
+
+          vid.play();
+
+          if (isPlaying) {
+            pvid.pause();
+          }
+        }
+
+        $("#cards_carousel").on('slide.bs.carousel', playSlide);
+        function playSlide0(ev) {
+          let slide = $("#cards_carousel").find('.carousel-item.active');
+          if (slide.length > 0){
+              let vid = slide[0].querySelectorAll('audio')[0];
+              vid.play();
+          }
+        }
+
+        $("#fullscreenModal").on('show.bs.modal', playSlide0);
+    </script>
+{% endblock script %}
+
