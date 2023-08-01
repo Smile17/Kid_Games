@@ -8,8 +8,8 @@ import json
 
 class UserSetting(Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    autoplay_sound = models.BooleanField(default=True)
     number_of_questions = models.PositiveIntegerField(default=10)
+    default_game_query = models.CharField(max_length=100, default="")
     #question_types = models.ManyToManyField('QuestionType')
     def __str__(self):
         data = model_to_dict(self)

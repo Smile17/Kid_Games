@@ -5,11 +5,12 @@ from .models import *
 def user_settings(request):
     settings = UserSetting.objects.get(user=request.user)
     initial_data = {
-        'autoplay_sound': settings.autoplay_sound,
-        'number_of_questions': settings.number_of_questions
+        'number_of_questions': settings.number_of_questions,
+        'default_game_query': settings.default_game_query
     }
     app_form = ApplicationSettingForm(initial=initial_data)
     context = {"user": request.user, "settings": settings, "app_form": app_form}
+    print(context)
     return render(request, "user_settings/user_settings.html", context)
 
 
@@ -18,7 +19,7 @@ def application_settings(request):
         form = ApplicationSettingForm(request.POST)
         if form.is_valid():
             settings = UserSetting.objects.get(user=request.user)
-            settings.autoplay_sound = form.cleaned_data['autoplay_sound']
+            settings.default_game_query = form.cleaned_data['default_game_query']
             settings.number_of_questions = form.cleaned_data['number_of_questions']
             settings.save()
             print("SETTINGS UPDATED")

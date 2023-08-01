@@ -135,11 +135,11 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Modes</h5>
-                                <a href="{% url 'home' %}">
+                                <a href="{% url 'home_with_tags' %}">
                                     <button type="button" class="btn btn-dark">Tag mode</button>
                                 </a>
                                 <small id="hint_btn_edit_mode" class="form-text text-muted">
-                                    In edit mode you can set cards visibility and create own sets</small>
+                                    In tag mode you can set cards tags and save default filtering</small>
                             </div>
                         </div>
                     </div>
@@ -171,8 +171,8 @@ function saveSettings(e) {
     e.preventDefault();
     var formData = {
       csrfmiddlewaretoken: '{{ csrf_token }}',
-      autoplay_sound: $("#id_autoplay_sound").is(':checked'),
       number_of_questions: $("#id_number_of_questions").val(),
+      default_game_query: $("#id_default_game_query").val(),
     };
     var POST_URL = "{% url 'application_settings' %}";
     $.ajax({
