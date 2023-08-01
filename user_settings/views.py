@@ -9,7 +9,7 @@ def user_settings(request):
         'default_game_query': settings.default_game_query
     }
     app_form = ApplicationSettingForm(initial=initial_data)
-    context = {"user": request.user, "settings": settings, "app_form": app_form}
+    context = {"app_form": app_form}
     print(context)
     return render(request, "user_settings/user_settings.html", context)
 

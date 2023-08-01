@@ -1,7 +1,5 @@
 from django.shortcuts import render
-from .models import *
 from random import sample, choice
-from user_settings.utils import get_user_settings
 from cards_gallery.models import Card
 
 games = {
