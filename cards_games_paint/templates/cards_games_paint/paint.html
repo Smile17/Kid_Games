@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block custom_style %}
+<link rel="stylesheet" href="{% static 'css/paint_game.css'%}/">
+{% endblock custom_style %}
+
+{% block navbar %}
+{% endblock navbar %}
+
+{% block content %}
+{% include "component/paint_component.html" %}
+{% endblock content %}
+
+{% block script %}
+    <script src="{% static 'js/paint_game.js' %}/"></script>
+{% endblock script %}
+
+<!--
+JS HTML CSS Drawing app: https://www.codingnepalweb.com/build-drawing-app-html-canvas-javascript/
+Drawing App in Django: https://medium.com/@nidhinp.412/paint-app-in-django-a54371044624
+ -->
+
+
+

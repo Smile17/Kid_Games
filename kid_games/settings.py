@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "user_settings",
     "cards_gallery",
     "cards_games",
+    "cards_games_paint",
     "scavenger_hunt"
 ]
 
@@ -112,7 +113,7 @@ AUTH_PASSWORD_VALIDATORS = [
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+#EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 #EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 #EMAIL_FILE_PATH = BASE_DIR / "sent_emails"

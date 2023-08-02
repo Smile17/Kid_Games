@@ -26,10 +26,12 @@ urlpatterns = [
     path("user/", include("user_auth.urls")),
     path("cards/", include("cards_gallery.urls")),
     path("game/", include("cards_games.urls")),
+    path('paint/', include('cards_games_paint.urls')),
     path("hunt/", include("scavenger_hunt.urls")),
 
     path('user/', include('django.contrib.auth.urls')),
     path('user_settings/', include('user_settings.urls')),
+
 ]
 
 

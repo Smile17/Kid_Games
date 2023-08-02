@@ -1,0 +1,86 @@
+{% load static %}
+
+<div class="draw-body">
+  <div class="draw-container">
+    <section class="tools-board">
+      <div class="row">
+        <label class="title">Shapes</label>
+        <ul class="options">
+          <li class="option tool" id="rectangle">
+            <i class="fa fa-square" aria-hidden="true"></i>
+            <span>Rectangle</span>
+          </li>
+          <li class="option tool" id="circle">
+            <i class="fa fa-circle" aria-hidden="true"></i>
+            <span>Circle</span>
+          </li>
+          <li class="option tool" id="triangle">
+            <i class="fa fa-caret-up" aria-hidden="true"></i>
+            <span>Triangle</span>
+          </li>
+          <li class="option">
+            <input type="checkbox" id="fill-color">
+            <span for="fill-color">Fill color</span>
+          </li>
+        </ul>
+      </div>
+      <div class="row">
+        <label class="title">Options</label>
+        <ul class="options">
+          <li class="option active tool" id="brush">
+            <i class="fa fa-paint-brush" aria-hidden="true"></i>
+            <span>Brush</span>
+          </li>
+          <li class="option tool" id="eraser">
+            <i class="fa fa-eraser" aria-hidden="true"></i>
+            <span>Eraser</span>
+          </li>
+          <li class="option">
+            <input type="range" id="size-slider" min="1" max="30" value="5">
+          </li>
+        </ul>
+      </div>
+      <div class="row colors">
+        <label class="title">Colors</label>
+        <ul class="options">
+          <li class="option"></li>
+          <li class="option selected-color"></li>
+          <li class="option"></li>
+          <li class="option"></li>
+          <li class="option">
+            <input type="color" id="color-picker" value="#4A98F7">
+          </li>
+        </ul>
+      </div>
+      <div class="row paint-buttons">
+        <button class="btn btn-dark clear-canvas">Clear Canvas</button>
+        <button class="btn btn-primary save-img">Save As Image</button>
+      </div>
+    </section>
+    <section class="drawing-board">
+      <canvas></canvas>
+    </section>
+  </div>
+</div>
+
+<div class="snackbar" id="snackbar">Image saved</div>
+<script src="{% static 'js/paint_game.js' %}/"></script>
+<script>
+  saveImg.addEventListener("click", () => {
+    var filename = `${Date.now()}.jpg`;
+    var image = canvas.toDataURL();
+    postData = { save_fname: filename, save_image: image }
+    //var POST_URL = "../paint/";
+    var POST_URL = "{% url 'paint' %}";
+    $.ajax({
+        url: POST_URL,
+        type: "POST",
+        data:   postData,
+        success: function (data) {
+          var x = document.getElementById("snackbar");
+          x.classList.add("show");
+          setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+        }
+    }); // end ajax
+});
+</script>

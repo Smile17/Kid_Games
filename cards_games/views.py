@@ -3,8 +3,9 @@ from random import sample, choice
 from cards_gallery.models import Card
 
 games = {
-    0: "cards_games/game_where_is.html",
+    #0: "cards_games/game_where_is.html",
     1: "cards_games/game_where_is_sound.html",
+    2: "cards_games_paint/game_paint_word.html"
 }
 
 
@@ -24,9 +25,13 @@ def game_page(request, game_num, slug):
     answer = choice(cards)  # It seems without choice it takes first images in DB more often
 
     context = {"game_num": game_num, "slug": slug, "answer": answer, "cards": cards, "settings": settings, "next_num": num + 1}
+    print(context)
+    print(template_path)
     return render(request, template_path, context)
 
 def not_enough(request):
     title = request.GET['title']
     context = {"title": title}
     return render(request, "cards_games/not_enough_error.html", context)
+
+
