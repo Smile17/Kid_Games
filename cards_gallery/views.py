@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 
 def home(request):
     categories = filter_cards(request, Card.objects, True)
+    print(categories)
     context = {"categories": categories}
     return render(request, "cards_gallery/index_game.html", context)
 
@@ -26,6 +27,7 @@ def home_with_tags(request):
         ptags = CardTag.objects.filter(user=request.user).values_list('tag', flat=True).distinct()
     context = {"categories": categories, "tags": tags, "ptags": ptags}
     return render(request, "cards_gallery/index.html", context)
+
 
 def filter_cards(request, cards_obj, is_category):
     is_filtered = False
@@ -66,34 +68,40 @@ def crud_tags(request):
             tag = request.POST["tag"]
             is_populate = request.POST["is_populate"]
             card = Card.objects.get(slug=slug)
-            delete_tags(request, card, tag)
-            if is_populate:
+            tag_obj = delete_tags(request, card, tag)
+            if is_populate == "true":
                 cards = card.cards.all()
                 for card in cards:
-                    delete_tags(request, card, tag)
+                    card.tags.remove(tag_obj.id)
+                    card.save()
             print("TAGS DELETED")
     elif request.method == 'POST':
         slug = request.POST["slug"]
         tags = request.POST["tags"].split(';')
         is_populate = request.POST["is_populate"]
         card = Card.objects.get(slug=slug)
-        save_tags(request, card, tags)
-        if is_populate:
+        print(card)
+        print(is_populate)
+        tags_obj = save_tags(request, card, tags)
+        if is_populate == "true":
             cards = card.cards.all()
             for card in cards:
-                save_tags(request, card, tags)
+                for tag_obj in tags_obj:
+                    card.tags.add(tag_obj)
         print("TAGS ADDED")
-
-    return redirect(home_with_tags)
+    return HttpResponse("1")
 
 def delete_tags(request, card, tag):
-    tag_obj = card.tags.filter(tag=tag, user=request.user)
-    tag_obj.delete()
+    tag_obj = card.tags.filter(tag=tag, user=request.user).get()
+    card.tags.remove(tag_obj)
     card.save()
+    return tag_obj
 def save_tags(request, card, tags):
+    tags_obj = []
     for tag in tags:
-        tag_obj = CardTag(tag=tag, user=request.user)
-        tag_obj.save()
+        tag_obj, created = CardTag.objects.get_or_create(tag=tag, user=request.user)
+        tags_obj.append(tag_obj)
         card.tags.add(tag_obj)
     card.save()
+    return tags_obj
 

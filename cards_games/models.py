@@ -1,3 +1,21 @@
+from django.contrib.auth.models import User
+from django.db import models
+from django_resized import ResizedImageField
+
+class GameType(models.Model):
+    title = models.CharField(max_length=50, unique=True)
+    template_name = models.CharField(max_length=100, blank=True, null=True)
+    description = models.CharField(max_length=100, blank=True, null=True)
+    image = ResizedImageField(
+        size=[1400, 1000],
+        crop=["middle", "center"],
+        default="default_image.jpg",
+        upload_to="image",
+    )
+
+    def __str__(self):
+        return self.title
+
 """
 from django.db import models
 from django.db.models import Model

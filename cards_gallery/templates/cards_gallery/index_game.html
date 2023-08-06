@@ -26,7 +26,7 @@
 {% block script %}
     <script>
         var loc = window.location;
-        let links = document.getElementById("cards_container").querySelectorAll(".card-link")
+        let links = $("#cards_container .card-link");
         for (let el of links) {
             el.href = el.href + loc.search;
         }

@@ -1,3 +1,5 @@
+{% load static %}
+
 <a class="card-link" href="{% url 'image_category_with_tags' card.slug %}">
     <div class="card shadow-sm">
         <img src="{{card.image.url}}">
@@ -17,7 +19,7 @@
         {% if user.is_authenticated %}
             {% for tag in card.tags.all %}
                 {% if tag.user == user %}
-                    <small class="choices__item choices__item--selectable">
+                    <small id="{{tag.tag}}" class="choices__item choices__item--selectable">
                       #{{tag.tag}}
                         <button type="button" class="choices__button custom-btn-tag"
                                 onclick="deleteTags('{{card.slug}}', '{{tag.tag}}', this, event)">

@@ -1,0 +1,1 @@
+[{"model": "cards_games.gametype", "pk": 1, "fields": {"title": "Find image by sound", "template_name": "cards_games/game_where_is.html", "description": "You get the question with 4 images and need to find a correct one based on 1 sound", "image": "default_image.jpg"}}]

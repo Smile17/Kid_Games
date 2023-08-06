@@ -35,7 +35,8 @@
 <!-- Sticky buttons -->
 <div class="sticky-button fixed-bottom container d-flex justify-content-end">
     {% if cards|length >= 4 %}
-        <a role="button" href="{% url 'image_game' random_num category.slug %}?num_question={{settings.num_question}}&num=1">
+        <a id="start_game" role="button"
+           href="{% url 'image_game' random_num category.slug %}?num_question={{settings.num_question}}&num=1">
             <button class="btn btn-dark btn-circle btn-circle-lg m-1"><i class="fa fa-gamepad" aria-hidden="true"></i></button>
         </a>
     {% else %}
@@ -117,10 +118,12 @@
 {% block script %}
     <script>
         var loc = window.location;
-        let links = document.getElementById("cards_container").querySelectorAll(".card-link")
+        let links = $("#cards_container .card-link");
         for (let el of links) {
             el.href = el.href + loc.search;
         }
+        let game_link = $("#start_game").attr('href') + loc.search.replace("?", "&");
+        $("#start_game").attr('href', game_link);
 
         function playAudio(audio_id){
                document.getElementById(audio_id).play();

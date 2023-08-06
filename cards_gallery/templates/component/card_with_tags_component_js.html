@@ -1,0 +1,72 @@
+{% load static %}
+<script>
+    function deleteTagUpdateCard(slug, tag) {
+      let id = "tags_" + slug;
+      $( "#" + id + " .card-body #" + tag ).remove();
+
+}
+function saveTagsUpdateCard(slug, tags) {
+    let id = "tags_" + slug;
+    tags = tags.split(";");
+    tags.forEach(function(tag, index, array)  {
+        let s = `<small id="${tag}" class="choices__item choices__item--selectable"> #${tag}
+                <button type="button" class="choices__button custom-btn-tag"
+                 onclick="deleteTags(\'${slug}\', \'${tag}\', this, event)">
+                 Remove item </button></small>`;
+      $( "#" + id + " .card-body" ).append(s);
+    });
+}
+function deleteTags(slug, tag, form, e) {
+    e.preventDefault();
+    let is_populate = document.getElementById("populateCheck_" + slug).checked;
+    var formData = {
+      csrfmiddlewaretoken: csrftoken,
+      slug: slug,
+      tag: tag,
+      is_populate: is_populate,
+    };
+    var DELETE_URL = "{% url 'delete_tags' %}";
+    //var DELETE_URL = "delete_tags";
+    $.ajax({
+        url: DELETE_URL,
+        type: "POST",
+        headers: { 'x-method-override': 'DELETE' },
+        data:   formData,
+        success: function (data) {
+          var x = document.getElementById("snackbar_del");
+          x.classList.add("show");
+          setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+          deleteTagUpdateCard(slug, tag);
+        }
+    }); // end ajax
+    return false;
+};
+
+function saveTags(slug, form, e) {
+    e.preventDefault();
+    let tags = form.getElementsByClassName("new-tags")[0].value;
+    let is_populate = document.getElementById("populateCheck_" + slug).checked;
+    if (tags != '') {
+        var formData = {
+          csrfmiddlewaretoken: csrftoken,
+          slug: slug,
+          tags: tags,
+          is_populate: is_populate,
+        };
+        var POST_URL = "{% url 'save_tags' %}";
+        //var POST_URL = "save_tags";
+        $.ajax({
+            url: POST_URL,
+            type: "POST",
+            data:   formData,
+            success: function (data) {
+              var x = document.getElementById("snackbar");
+              x.classList.add("show");
+              setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+              saveTagsUpdateCard(slug, tags);
+            }
+        }); // end ajax
+    }
+    return false;
+};
+    </script>

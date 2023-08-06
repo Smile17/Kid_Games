@@ -5,7 +5,7 @@
 
 {% block content %}
 <div class="sticky-button fixed-top container d-flex justify-content-end">
-    <a href="{% url 'image_category'  slug %}">
+    <a id="end_game" href="{% url 'image_category'  slug %}">
         <i class="fa fa-times fa-lg text-dark" aria-hidden="true"></i>
     </a>
 </div>
@@ -59,15 +59,37 @@
             document.getElementById('next-button').style.display = 'none';
         }
 
-         $('.card-item.variant').click(function() {
-         var keyBtn = 'next-button';
-         if (progress_width >= 100) {
-            keyBtn = 'end-button';
-        }
-         var next_button = document.getElementById(keyBtn);
-         next_button.classList.remove('disabled');
-         next_button.getElementsByTagName('button')[0].classList.remove('disabled');
+        function copyFilterQuery(btn, ) {
 
+        }
+
+        var keyBtn = '#next-button';
+         if (progress_width >= 100) {
+            keyBtn = '#end-button';
+        }
+
+         var next_button = $(keyBtn);
+         var end_button = $("#end_game");
+         let game_link = next_button.attr('href');
+         let end_link = end_button.attr('href') + "?";
+         const urlParams = new URLSearchParams(window.location.search);
+         const ptag = urlParams.get('ptag');
+         if (ptag !== null) {
+            game_link += "&ptag=" + ptag;
+            end_link += "ptag=" + ptag;
+         }
+         const tag = urlParams.get('tag');
+         if (tag !== null) {
+            game_link += "&tag=" + tag;
+            end_link += "&tag=" + tag;
+         }
+         if (end_link.slice(-1) == "?") end_link = end_link.slice(0, -1);
+         next_button.attr('href', game_link);
+         end_button.attr('href', end_link);
+
+         $('.card-item.variant').click(function() {
+         next_button.removeClass('disabled');
+         $(keyBtn + " button")[0].classList.remove('disabled');
     });
     function saveProgress() {
 

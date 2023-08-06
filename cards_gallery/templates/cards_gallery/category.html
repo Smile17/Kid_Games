@@ -39,10 +39,11 @@
 
 {% block script %}
     <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
-    <script src="{% static 'js/filter_component.js' %}"></script>
+    <script src="{% static 'js/filter_component.js' %}/"></script>
+    {% include "component/card_with_tags_component_js.html" %}
     <script>
         var loc = window.location;
-        let links = document.getElementById("cards_container").querySelectorAll(".card-link")
+        let links = $("#cards_container .card-link");
         for (let el of links) {
             el.href = el.href + loc.search;
         }
