@@ -1,8 +1,9 @@
+from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView, PasswordChangeView, PasswordResetView, PasswordResetDoneView, \
     PasswordResetConfirmView, PasswordResetCompleteView
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
-from .forms import SignUpForm
+from .forms import SignUpForm, ForgotPassword
 from django.contrib import messages
 
 
@@ -28,6 +29,8 @@ class CustomPasswordResetView(PasswordResetView):
     template_name = 'registration/custom_password_reset_form.html'
     email_template_name = 'registration/custom_password_reset_email.html'
 
+    form_class = ForgotPassword
+
 
 class CustomPasswordResetDoneView(PasswordResetDoneView):
     template_name = "registration/custom_password_reset_done.html"
@@ -39,7 +42,6 @@ class CustomPasswordResetConfirmView(PasswordResetConfirmView):
 
 
 class CustomPasswordResetCompleteView(PasswordResetCompleteView):
-    pass
-    #template_name = "registration/my_password_reset_complete.html"
+    template_name = "registration/custom_password_reset_complete.html"
 
 

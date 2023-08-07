@@ -1,7 +1,11 @@
-from django.http import HttpResponse
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib import messages
 from django.shortcuts import render, redirect
-from .forms import ApplicationSettingForm
+from .forms import ApplicationSettingForm, CustomPasswordChangeForm, UserEditForm
 from .models import *
+
+
 def user_settings(request):
     settings = UserSetting.objects.get(user=request.user)
     initial_data = {
@@ -9,8 +13,9 @@ def user_settings(request):
         'default_game_query': settings.default_game_query
     }
     app_form = ApplicationSettingForm(initial=initial_data)
-    context = {"app_form": app_form}
-    print(context)
+    form_change_password = CustomPasswordChangeForm(user=request.user)
+    form_user_edit = UserEditForm(instance=request.user)
+    context = {"app_form": app_form, "form_change_password": form_change_password, "form_user_edit": form_user_edit}
     return render(request, "user_settings/user_settings.html", context)
 
 
@@ -24,3 +29,29 @@ def application_settings(request):
             settings.save()
             print("SETTINGS UPDATED")
     return redirect(user_settings)
+
+
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect(user_settings)
+        else:
+            messages.error(request, 'Please correct the error below.')
+    return redirect(user_settings)
+
+
+def user_edit(request):
+    if request.method == 'POST':
+        user = request.user
+        form = UserEditForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            print("USER INFO UPDATED")
+            return redirect(user_settings)
+    return redirect(user_settings)
+
+

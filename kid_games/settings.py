@@ -118,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
 
-#EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 #EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 #EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
@@ -130,8 +130,6 @@ AUTHENTICATION_BACKENDS = [
 
 SOCIAL_AUTH_GITHUB_KEY = os.environ.get("SOCIAL_AUTH_GITHUB_KEY")
 SOCIAL_AUTH_GITHUB_SECRET = os.environ.get("SOCIAL_AUTH_GITHUB_SECRET")
-#SOCIAL_AUTH_GITHUB_KEY = 'd85f02a77d37e3e73221'
-#SOCIAL_AUTH_GITHUB_SECRET = 'ba2df5211ddf2dbb6e5479f2325a9777080b5c7f'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/

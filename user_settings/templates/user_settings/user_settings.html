@@ -17,7 +17,7 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title mb-0">Profile Settings</h5>
+                        <h5 class="card-title mb-0">Account Settings</h5>
                     </div>
 
                     <div class="list-group list-group-flush" role="tablist">
@@ -43,52 +43,15 @@
 
                         <div class="card">
                             <div class="card-header">
-                                <div class="card-actions float-right">
-                                    <div class="dropdown show">
-                                        <a href="#" data-toggle="dropdown" data-display="static">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal align-middle">
-                                                <circle cx="12" cy="12" r="1"></circle>
-                                                <circle cx="19" cy="12" r="1"></circle>
-                                                <circle cx="5" cy="12" r="1"></circle>
-                                            </svg>
-                                        </a>
-
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <h5 class="card-title mb-0">Public info</h5>
+                                <h5 class="card-title mb-0">Account info</h5>
                             </div>
                             <div class="card-body">
-                                <form>
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label for="inputUsername">Username</label>
-                                                <input type="text" class="form-control" id="inputUsername" placeholder="Username">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="inputUsername">Email</label>
-                                                <textarea rows="2" class="form-control" id="inputEmail" placeholder="Email"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="text-center">
-                                                <img alt="Avatar" src="https://w7.pngwing.com/pngs/867/134/png-transparent-giant-panda-dog-cat-avatar-fox-animal-tag-mammal-animals-carnivoran-thumbnail.png" class="rounded-circle img-responsive mt-2" width="128" height="128">
-                                                <div class="mt-2">
-                                                    <span class="btn btn-dark"><i class="fa fa-upload"></i></span>
-                                                </div>
-                                                <small>For best results, use an image at least 128px by 128px in .jpg format</small>
-                                            </div>
-                                        </div>
-                                    </div>
-
+                                <form id="user_edit_form" onsubmit="userEdit(event)" method="post">
+                                    {% csrf_token %}
+                                    {{ form_user_edit|crispy}}
                                     <button type="submit" class="btn btn-dark">Save changes</button>
+                                    <div class="snackbar" id="snackbar_user_edit">Account info updated</div>
                                 </form>
-
                             </div>
                         </div>
 
@@ -97,24 +60,12 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Password</h5>
-
-                                <form>
-                                    <div class="form-group">
-                                        <label for="inputPasswordCurrent">Current password</label>
-                                        <input type="password" class="form-control" id="inputPasswordCurrent">
-                                        <small><a href="#">Forgot your password?</a></small>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="inputPasswordNew">New password</label>
-                                        <input type="password" class="form-control" id="inputPasswordNew">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="inputPasswordNew2">Verify password</label>
-                                        <input type="password" class="form-control" id="inputPasswordNew2">
-                                    </div>
+                                <form id = "password_change_form" onsubmit="changePassword(event)" method="post">
+                                    {% csrf_token %}
+                                    {{ form_change_password|crispy}}
                                     <button type="submit" class="btn btn-dark">Save changes</button>
+                                    <div class="snackbar" id="snackbar_password">Password updated</div>
                                 </form>
-
                             </div>
                         </div>
                     </div>
@@ -167,6 +118,41 @@ function congratulate() {
       let confetti_button = confetti.create(canvas);
       confetti_button().then(() => container.removeChild(canvas));
 }
+function userEdit(e) {
+    e.preventDefault();
+    var formData = $('#user_edit_form').serialize();
+    var POST_URL = "{% url 'user_edit' %}";
+    $.ajax({
+        url: POST_URL,
+        type: "POST",
+        data:   formData,
+        success: function (data) {
+          var x = document.getElementById("snackbar_user_edit");
+          x.classList.add("show");
+          setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+          congratulate();
+        }
+    }); // end ajax
+    return false;
+};
+function changePassword(e) {
+    e.preventDefault();
+    var formData = $('#password_change_form').serialize();
+    var POST_URL = "{% url 'change_password' %}";
+    $.ajax({
+        url: POST_URL,
+        type: "POST",
+        data:   formData,
+        success: function (data) {
+          var x = document.getElementById("snackbar_password");
+          x.classList.add("show");
+          setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+          congratulate();
+        }
+    }); // end ajax
+    return false;
+};
+
 function saveSettings(e) {
     e.preventDefault();
     var formData = {
