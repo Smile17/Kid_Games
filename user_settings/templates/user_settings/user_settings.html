@@ -93,6 +93,37 @@
                                     In tag mode you can set cards tags and save default filtering</small>
                             </div>
                         </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Active games</h5>
+                                {% if games|length > 0 %}
+                                    <ul class="list-group list-group-xl mx-auto">
+                                        {% for game in games %}
+                                        <div class="pt-3">
+                                            <li class="list-group-item rounded-0">
+                                                <div class="custom-control custom-checkbox">
+                                                    {% if game.is_active %}
+                                                        <input class="custom-control-input" id="game_{{game.id}}" type="checkbox" checked>
+                                                    {% else %}
+                                                        <input class="custom-control-input" id="game_{{game.id}}" type="checkbox">
+                                                    {% endif %}
+                                                    <label class="cursor-pointer d-block custom-control-label" for="game_{{game.id}}">
+                                                        {{game.title}}</label>
+                                                    <small class="form-text text-muted">{{game.description}}</small>
+                                                </div>
+                                            </li>
+                                        </div>
+                                        {% endfor %}
+                                    </ul>
+                                    <br>
+                                    <button type="submit" class="btn btn-dark confetti-button" onclick="gameSelectionSave(event)">Save changes</button>
+                                    <div class="snackbar" id="snackbar_games">Games selection updated</div>
+                                {% else %}
+                                <p>No game types</p>
+                                {% endif %}
+
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -118,6 +149,35 @@ function congratulate() {
       let confetti_button = confetti.create(canvas);
       confetti_button().then(() => container.removeChild(canvas));
 }
+
+function gameSelectionSave(e) {
+    e.preventDefault();
+    let arr = {};
+    {% for game in games %}
+        arr[{{game.id}}] = $('#game_{{game.id}}').is(":checked");
+        //arr.push($('#game_{{game.id}}').is(":checked"));
+    {% endfor %}
+    let jsonArr = JSON.stringify(arr);
+    var formData = {
+      csrfmiddlewaretoken: '{{ csrf_token }}',
+      selected_games: jsonArr,
+    };
+    var POST_URL = "{% url 'game_selection' %}";
+    $.ajax({
+        url: POST_URL,
+        type: "POST",
+        data: formData,
+        success: function (data) {
+          var x = document.getElementById("snackbar_games");
+          x.classList.add("show");
+          setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+          congratulate();
+        }
+    }); // end ajax
+
+    return false;
+};
+
 function userEdit(e) {
     e.preventDefault();
     var formData = $('#user_edit_form').serialize();

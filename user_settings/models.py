@@ -7,15 +7,16 @@ import json
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+from cards_games.models import GameType
+
 
 class UserSetting(Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     number_of_questions = models.PositiveIntegerField(default=10)
     default_game_query = models.CharField(max_length=100, default="")
-    #question_types = models.ManyToManyField('QuestionType')
+    games = models.ManyToManyField(GameType, related_name='games')
     def __str__(self):
-        data = model_to_dict(self)
-        return json.dumps(data)
+        return str(self.user)
 
 @receiver(post_save, sender=User)
 def create_user_setting(sender, instance, created, **kwargs):
@@ -26,9 +27,3 @@ def create_user_setting(sender, instance, created, **kwargs):
 def save_user_setting(sender, instance, **kwargs):
     instance.usersetting.save()
 
-#class QuestionType(models.Model):
-#    QUESTION_TYPE = (
-#        (1, "Find the card out of 4"),
-#        (2, "Find the sound out of 4")
-#    )
-#    type = MultiSelectField(choices=QUESTION_TYPE)

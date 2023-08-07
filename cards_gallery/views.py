@@ -6,7 +6,6 @@ from django.contrib.auth.decorators import login_required
 
 def home(request):
     categories = filter_cards(request, Card.objects, True)
-    print(categories)
     context = {"categories": categories}
     return render(request, "cards_gallery/index_game.html", context)
 

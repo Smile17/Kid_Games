@@ -15,8 +15,26 @@ def user_settings(request):
     app_form = ApplicationSettingForm(initial=initial_data)
     form_change_password = CustomPasswordChangeForm(user=request.user)
     form_user_edit = UserEditForm(instance=request.user)
-    context = {"app_form": app_form, "form_change_password": form_change_password, "form_user_edit": form_user_edit}
+    #games = settings.games
+    games = GameType.objects.all()
+    for game in games:
+        game.is_active = settings.games.filter(id=game.id).exists()
+
+    context = {"app_form": app_form, "form_change_password": form_change_password, "form_user_edit": form_user_edit, "games": games}
     return render(request, "user_settings/user_settings.html", context)
+
+
+def game_selection(request):
+    if request.method == 'POST':
+        arr = request.POST["selected_games"]
+        arr = json.loads(arr)
+        settings = UserSetting.objects.get(user=request.user)
+        settings.games.clear()
+        for key in arr:
+            if arr[key] == True:
+                settings.games.add(key)
+        settings.save()
+    return redirect(user_settings)
 
 
 def application_settings(request):

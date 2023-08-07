@@ -1,5 +1,7 @@
 from .models import UserSetting
-def  get_user_settings(request):
+
+
+def get_user_settings(request):
     # Default settings for unauthorized users
     num_question = 10
     default_game_query = ""
@@ -12,5 +14,5 @@ def  get_user_settings(request):
         "num_question": num_question,
         "default_game_query": default_game_query
     }
-
     return settings
+
