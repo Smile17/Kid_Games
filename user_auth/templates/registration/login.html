@@ -50,10 +50,11 @@
                 <button type="button" class="btn btn-dark btn-circle btn-circle-lg btn-floating mx-1">
                   <i class="fa fa-twitter"></i>
                 </button>
-
-                <button type="button" class="btn btn-dark btn-circle btn-circle-lg btn-floating mx-1">
-                  <i class="fa fa-github"></i>
-                </button>
+                <a href="{% url 'social:begin' 'github' %}">
+                    <button type="button" class="btn btn-dark btn-circle btn-circle-lg btn-floating mx-1">
+                      <i class="fa fa-github"></i>
+                    </button>
+                </a>
               </div>
 
             </form>

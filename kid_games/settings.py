@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,7 +23,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-hsl5x!x_osyny-pv7hg5yda$dcs6)o2q*p^k@+(xz2#eq(5r4#"
+#SECRET_KEY = "django-insecure-hsl5x!x_osyny-pv7hg5yda$dcs6)o2q*p^k@+(xz2#eq(5r4#"
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -32,6 +35,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "social_django",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -56,6 +60,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "social_django.middleware.SocialAuthExceptionMiddleware",
 ]
 
 ROOT_URLCONF = "kid_games.urls"
@@ -63,8 +68,6 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        #'DIRS': [os.path.join(BASE_DIR, 'templates')],
-        #'DIRS': [BASE_DIR / "cards_gallery/templates"],
         "DIRS": [],
         "APP_DIRS": True,
         "OPTIONS": {
@@ -73,6 +76,8 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "social_django.context_processors.backends",
+                "social_django.context_processors.login_redirect",
             ],
         },
     },
@@ -117,6 +122,16 @@ LOGOUT_REDIRECT_URL = "home"
 
 #EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 #EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
+
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+    "social_core.backends.github.GithubOAuth2",
+]
+
+SOCIAL_AUTH_GITHUB_KEY = os.environ.get("SOCIAL_AUTH_GITHUB_KEY")
+SOCIAL_AUTH_GITHUB_SECRET = os.environ.get("SOCIAL_AUTH_GITHUB_SECRET")
+#SOCIAL_AUTH_GITHUB_KEY = 'd85f02a77d37e3e73221'
+#SOCIAL_AUTH_GITHUB_SECRET = 'ba2df5211ddf2dbb6e5479f2325a9777080b5c7f'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/

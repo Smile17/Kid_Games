@@ -20,6 +20,9 @@ var setCanvasBackground = () => {
     ctx.fillStyle = "#fff";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = selectedColor; // setting fillstyle back to the selectedColor, it'll be the brush color
+
+    //const img = document.getElementById("scream");
+    //ctx.drawImage(img, 10, 10, canvas.width - 10, canvas.height - 10);
 }
 
 window.addEventListener("load", () => {
