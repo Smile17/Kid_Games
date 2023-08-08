@@ -68,23 +68,29 @@
             keyBtn = '#end-button';
         }
 
-         var next_button = $(keyBtn);
-         var end_button = $("#end_game");
-         let game_link = next_button.attr('href');
-         let end_link = end_button.attr('href') + "?";
+         let filter_query = "";
          const urlParams = new URLSearchParams(window.location.search);
          const ptag = urlParams.get('ptag');
          if (ptag !== null) {
-            game_link += "&ptag=" + ptag;
-            end_link += "ptag=" + ptag;
+            filter_query += "&ptag=" + ptag;
          }
          const tag = urlParams.get('tag');
          if (tag !== null) {
-            game_link += "&tag=" + tag;
-            end_link += "&tag=" + tag;
+            filter_query += "&tag=" + tag;
          }
-         if (end_link.slice(-1) == "?") end_link = end_link.slice(0, -1);
+
+         var next_button = $(keyBtn);
+         let game_link = next_button.attr('href');
+         if (game_link.includes("?")) {
+            game_link += filter_query;
+         }
+         else {
+            game_link += "?" + filter_query.slice(1);
+         }
          next_button.attr('href', game_link);
+
+         var end_button = $("#end_game");
+         let end_link = end_button.attr('href') + "?" + filter_query.slice(1);
          end_button.attr('href', end_link);
 
          $('.card-item.variant').click(function() {
