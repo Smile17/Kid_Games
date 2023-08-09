@@ -37,7 +37,7 @@ def game_page(request, game_num, slug):
         context = {"game_num": game_num, "slug": slug, "answer": answer, "cards": cards, "settings": settings, "next_num": num + 1}
     elif game_key == games_keys[2]:
         category = Card.objects.get(slug=slug)
-        cards = filter_cards(request, category.cards, False)
+        cards = filter_cards(request, category.cards, False).filter(title__length__lt=6)
         answer = cards.order_by('?').first()
         context = {"game_num": game_num, "slug": slug, "answer": answer, "settings": settings,
                    "next_num": num + 1}

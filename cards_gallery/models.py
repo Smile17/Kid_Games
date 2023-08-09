@@ -2,6 +2,10 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.utils.text import slugify
 from django_resized import ResizedImageField
+from django.db.models import CharField
+from django.db.models.functions import Length
+
+CharField.register_lookup(Length, 'length')
 
 
 class CardTag(models.Model):
@@ -25,7 +29,7 @@ class Card(models.Model):
     )
     audio = models.FileField(upload_to="audio", default="default_audio.mp3")
     cards = models.ManyToManyField('Card', through='CardItem', null=True, blank=True)
-    tags = models.ManyToManyField(CardTag, related_name='tags')
+    tags = models.ManyToManyField(CardTag, related_name='tags', null=True, blank=True)
     is_category = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
