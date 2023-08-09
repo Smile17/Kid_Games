@@ -1,5 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.urls import reverse
+
 from .models import *
 from user_settings.utils import get_user_settings
 from django.contrib.auth.decorators import login_required
@@ -103,4 +105,8 @@ def save_tags(request, card, tags):
         card.tags.add(tag_obj)
     card.save()
     return tags_obj
+
+
+def bad_request(request, exception):
+    return redirect(reverse('home'))
 

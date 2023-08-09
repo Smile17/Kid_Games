@@ -19,12 +19,16 @@ from django.urls import path
 from django.urls import include
 from django.conf import settings
 from django.conf.urls.static import static
+import cards_gallery
 
+from django.conf.urls import handler404
+handler404 = 'cards_gallery.views.bad_request'
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("user/", include("user_auth.urls")),
     path("cards/", include("cards_gallery.urls")),
+    path("", cards_gallery.views.home, name="default_home"),
     path("game/", include("cards_games.urls")),
     path('paint/', include('cards_games_paint.urls')),
     path("hunt/", include("scavenger_hunt.urls")),
