@@ -27,10 +27,13 @@ def scale_image(img, factor=1):
   return cv2.resize(img, (int(img.shape[1] * factor), int(img.shape[0] * factor)))
 
 
-directory = "../../results/australia/image"
+directory = "input/image"
+
+
 dims = (1400, 1000)
 for filename in os.listdir(directory):
     f = os.path.join(directory, filename)
+    print(f)
     # checking if it is a file
     if os.path.isfile(f):
       image = cv2.imread(f)
@@ -40,3 +43,4 @@ for filename in os.listdir(directory):
         image = scale_image(image, factor=factor)
       res = center_crop(image, dims)
       cv2.imwrite("output/" + filename, res)
+

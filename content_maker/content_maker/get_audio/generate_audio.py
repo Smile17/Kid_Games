@@ -1,27 +1,32 @@
 # Import the required module for text
 # to speech conversion
+import codecs
+
 from gtts import gTTS
 
 # This module is imported so that we can
 # play the converted audio
 import os
-
-# The text that you want to convert to audio
-mytext = 'Доброго дня'
+prefix = 'ukr_alpha17'
+words = []
+f = 'input.txt'
+with codecs.open(f, encoding='utf-8') as f:
+    lines = f.readlines()
+    for line in lines:
+        words.append(line.replace('\n', '').replace('\r', ''))
+words = [word.lower() for word in words]
+print(words)
 
 # Language in which you want to convert
 language = 'uk'
 
-# Passing the text and language to the engine,
-# here we have marked slow=False. Which tells
-# the module that the converted audio should
-# have a high speed
-myobj = gTTS(text=mytext, lang=language, slow=False)
-
-# Saving the converted audio in a mp3 file named
-# welcome
-myobj.save("welcome.mp3")
+for i, word in enumerate(words):
+    obj = gTTS(text=word, lang=language, slow=False)
+    f = str(i + 1)
+    if i + 1 < 10:
+        f = "0" + f
+    obj.save("audio/" + prefix + "_" + f + ".m4a")
 
 # Playing the converted file
-os.system("welcome.mp3")
+#os.system("welcome.mp3")
 
